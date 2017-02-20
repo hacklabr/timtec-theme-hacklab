@@ -1,0 +1,68 @@
+// Page's headers
+// --------------------------------------------------
+
+.page-header {
+    border: 0;
+    margin: 20px 0 20px;
+    padding: 0;
+    &:first-child, &.first {
+        margin-top: 0;
+    }
+    @media screen and (min-width: $screen-sm-min) {
+        margin: 20px 0 30px;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        color: $brand-primary;
+        font-size: 5.9vmax;
+        font-weight: bold;
+        line-height: 0.9;
+        margin: 0; 
+        @media screen and (min-width: $screen-xs-min) {
+            font-size: 48px;
+            line-height: 1;
+        }
+    }
+}
+
+// Secondary page's headers
+// --------------------------------------------------
+
+.primary-page-header {
+    border: 0;
+    margin: 20px 0 10px;
+    padding: 0;
+    &:first-child, &.first {
+        margin-top: 0;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        color: $brand-primary;
+        font-size: 5vmax;
+        font-weight: bold;
+        line-height: 0.9;
+        margin: 0; 
+        @media screen and (min-width: $screen-xs-min) {
+            font-size: 36px;
+            line-height: 1;
+        }
+    }
+}
+
+.secondary-page-header {
+    border: 0;
+    margin: 20px 0 10px;
+    padding: 0;
+    &:first-child, &.first {
+        margin-top: 0;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        color: $brand-primary;
+        font-family: $font-family-sans-serif;
+        font-size: 3vmax;
+        font-weight: bold;
+        line-height: 1.2;
+        margin: 0; 
+        @media screen and (min-width: $screen-xs-min) {
+            font-size: 20px;
+        }
+    }
+}

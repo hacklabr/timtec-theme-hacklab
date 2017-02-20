@@ -1,0 +1,107 @@
+{% load i18n %}
+{% load is_coordinator %}
+{% load has_group %}
+
+<nav class="main-nav" role="navigation" ng-controller="MainNavCtrl">
+    <ul class="user-nav">
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'profile' %}" class="profile">{% trans "Profile" %}</a></li>
+        <li><a href="{% url 'user_notes' %}" class="notes">{% trans "Notes" %}</a></li>
+        <!--<li><a href="{% url 'user_courses' %}" class="courses">{% trans 'Meus módulos' %}</a></li>-->
+        <li><a href="{% url 'courses' %}" class="courses">Módulos</a></li>
+        <li>
+            {% verbatim %}
+            <a class="messages" href="/messages/">
+                <span class="notification-bubble" ng-show="messages_unread_count">{{ messages_unread_count }}</span>
+                <span class="">Avisos</span>
+            </a>
+            {% endverbatim %}
+        </li>
+        <!--<li><a href="#" class="repositories">{% trans "Repository" %}</a></li>-->
+        <li><a href="{% url 'discussion:forum-home' %}" class="forum">Fóruns</a></li>
+        <!--<li><a href="#" class="help">{% trans "Help" %}</a></li>-->
+        <li>
+            {% verbatim %}
+            <a class="chat" href="/paralapraca/chat">
+                <span class="notification-bubble" ng-show="chat.notifications">{{ chat.notifications }}</span>
+                <span class="">Chat</span>
+            </a>
+            {% endverbatim %}
+        </li>
+        {% if user.is_superuser %}
+        <li class="submenu">
+            <a class="admin"
+                ng-init="collapsedSubmenu=true"
+                ng-click="collapsedSubmenu=!collapsedSubmenu">
+                <span class="visible-xs-inline">Admin</span>
+                <span class="hidden-xs">Administração</span>
+            </a>
+            <ul uib-collapse="collapsedSubmenu">
+                <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans 'Módulos' %}</a></li>
+                <li><a href="{% url 'administration.users' %}" id="admin-link">{% trans 'Usuários' %}</a></li>
+                <!--<li><a href="{% url 'administration.users' %}">{% trans 'Usuários e grupos' %}</a></li>-->
+            </ul>
+        </li>
+        {% elif user|is_coordinator %}
+        <li class="submenu">
+            <a href="{% url 'administration.courses' %}">
+                {% trans "Admin" %}
+            </a>
+        </li>
+        {% endif %}
+        <li><a href="{% url 'timtec_logout' %}" class="logout">{% trans "Logout" %}</a></li>
+    {% else %}
+        <li><a href="{% url 'courses' %}" class="courses">{% trans 'Módulos' %}</a></li>
+        <li>
+            <a href="#" class="dropdown-toggle login" data-toggle="dropdown">{% trans 'Sign In' %}</a>
+            {% include '_login_modal.html' %}
+        </li>
+        <li>
+        {% block header_signup_link %}
+            <a href="#" class="dropdown-toggle register" data-toggle="dropdown">{% trans 'Sign Up' %}</a>
+            {% include '_signup_modal.html' %}
+        {% endblock %}
+        </li>
+    {% endif %}
+    </ul>
+
+    <div class="site-info">
+        <ul class="site-nav">
+            {% block header_site_nav %}
+            <li><a href="/pages/sobre">{% trans 'About' %}</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
+            {% endblock %}
+        </ul>
+        <!--<div class="legal-text">-->
+            <!--{% trans 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in aliquam eros.' %}-->
+        <!--</div>-->
+    </div>
+</nav>
+
+<div class="modal fade" id="modal-contact">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans 'Contact' %}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-1">
+                        <form class="form-horizontal" method="post" action="{% url 'contact' %}">
+                            {% csrf_token %}
+                            {% include '_contact_form.html' %}
+                            <div class="submit textright">
+                                <button type="reset" class="btn btn-danger">{% trans 'Clear' %}</button>
+                                <button type="submit" class="btn btn-success">{% trans 'Send' %}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Close' %}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

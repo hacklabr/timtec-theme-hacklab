@@ -1,0 +1,67 @@
+%editable {
+    padding: 3px;
+    background-color: rgba($gray-lighter,0.5);
+    color: $gray;
+    transition: all 0.3s;
+    &:hover {
+        background-color: rgba($gray-lighter,0.7);
+    }
+}
+%editable-input {
+    input {
+        border: none;
+        color: #000;
+        background: none;
+        display: block;
+        margin: 0;
+        width: 100%;
+    }
+}
+.editable-content {
+    @extend %editable;
+}
+.editable-title {
+    @extend %editable;
+    @extend %editable-input;
+    font-family: $headings-font-family;
+    font-size: 28px;
+    input {
+        font-weight: $bold;
+    }
+}
+.editable-secondary-title {
+    @extend %editable;
+    @extend %editable-input;
+    font-family: $font-family-sans-serif;
+    font-size: 20px;
+    input {
+        font-weight: $bold;
+    }
+}
+.editable-slug {
+    @extend %editable;
+    @extend %editable-input;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 3px;
+    width: 150px;
+}
+.editable-text {
+    @extend %editable;
+    @extend %editable-input;
+    margin: 3px 0 10px;
+}
+.editable-text-box {
+    @extend %editable;
+    cursor: pointer;
+    word-break: break-word;
+    padding: 4px;
+    &:empty {
+        min-height: 120px;
+        text-align: center;
+        line-height: 120px;
+    }
+}
+.secondary-header .editable-title {
+    margin-top: 20px;
+}

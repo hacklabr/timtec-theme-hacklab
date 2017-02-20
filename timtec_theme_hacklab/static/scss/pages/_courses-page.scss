@@ -1,0 +1,79 @@
+// Courses' page
+// --------------------------------------------------
+
+.courses-page {
+    .page-header {
+        h2 {
+            color: $brand-primary;
+        }
+    }
+    .courses-list {
+        margin-top: 40px;
+        @media screen and (min-width: $screen-xs-min) {
+            margin-top: 0;
+        }
+    }
+    .course-box {
+        margin-bottom: 60px;
+        .course-thumb-bg {
+            height: 140px;
+        }
+        .course-progress {
+            .progress {
+                height: 7px;
+            }
+        }
+        .progress-label {
+            @media screen and (min-width: $screen-sm-min) {
+                font-size: $font-size-base;
+            }
+        }
+        .course-description {
+            .course-title {
+                @media screen and (min-width: $screen-sm-min) {
+                    font-size: 36px;
+                    margin-top: 0;
+                    max-height: initial;
+                }
+                @media screen and (min-width: $screen-md-min) {
+                    font-size: 48px;
+                }
+            }
+            .course-info {
+                @media screen and (min-width: $screen-sm-min) {
+                    font-size: $font-size-base;
+                    .unit-title {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+    .course-filters {
+        ul {
+            background-color: $gray;
+            border-radius: 20px;
+            box-shadow: none;
+            color: #fff;
+            font-size: $font-size-large;
+            list-style: none;
+            padding: 0;
+            li {
+                cursor: pointer;
+                padding: 2px 15px;
+                &:first-child {
+                    border-radius: 20px 20px 0 0;
+                    padding-top: 6px;
+                }
+                &:last-child {
+                    border-radius: 0 0 20px 20px;
+                    padding-bottom: 6px;
+                }
+                &:hover, &.selected {
+                    background-color: $brand-primary;
+                    font-weight: $semi-bold;
+                }
+            }
+        }
+    }
+}

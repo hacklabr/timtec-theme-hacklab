@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Paralápraca</title>
+
+    <link href="/static/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" media="screen,projection,print" />
+<link href="/static/codemirror/lib/codemirror.css" rel="stylesheet" type="text/css" media="screen,projection,print" />
+<link href="/static/codemirror/addon/hint/show-hint.css" rel="stylesheet" type="text/css" media="screen,projection,print" />
+<link href="/static/codemirror/theme/monokai.css" rel="stylesheet" type="text/css" media="screen,projection,print" />
+<link href="/static/css/codemirrorconf.css" rel="stylesheet" type="text/css" media="screen,projection,print" />
+    <link href="/static/scss/main-timtec_theme_hacklab.css" rel="stylesheet" type="text/css" media="screen,projection,print" />
+
+    <script>
+        window.STATIC_URL = 'static/';
+        window.MEDIA_URL = '/media/';
+        window.DEBUG = '';
+        window.YOUTUBE_API_KEY = 'AIzaSyC7Czwy79W_Xd-ANIIZScJ6aW8dMG13wFQ';
+        window.USER_ID = 'None';
+    </script>
+
+    <script type="text/javascript" src="/static/angular/angular.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-animate/angular-animate.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-cookies/angular-cookies.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-resource/angular-resource.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-route/angular-route.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-sanitize/angular-sanitize.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-bootstrap/ui-bootstrap-tpls.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-gettext/dist/angular-gettext.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-i18n/angular-locale_pt-br.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/modernizr/modernizr.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/jquery/dist/jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/jquery-ui/ui/jquery-ui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/jquery-ui/ui/jquery.ui.sortable.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/bootstrap/dist/js/bootstrap.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/consolelogfallback.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/contact_form.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/helpers.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/codemirror/lib/codemirror.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/addon/fold/xml-fold.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/addon/hint/show-hint.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/addon/hint/xml-hint.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/addon/hint/html-hint.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/addon/hint/css-hint.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/addon/hint/javascript-hint.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/addon/edit/matchbrackets.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/addon/edit/closebrackets.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/addon/edit/matchtags.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/mode/xml/xml.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/mode/css/css.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/mode/javascript/javascript.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/mode/htmlmixed/htmlmixed.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/mode/clike/clike.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/codemirror/mode/php/php.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/vendor/angular-ui-codemirror/ui-codemirror.js" charset="utf-8"></script>
+
+    <script type="text/javascript" src="/static/js/vendor/pagedown/Markdown.Converter.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/js/vendor/pagedown/Markdown.Editor.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/js/vendor/pagedown/Markdown.Sanitizer.js" charset="utf-8"></script>
+
+
+
+    <script type="text/javascript" src="/static/js/core/app.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/core/controllers.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/core/services.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/core/filters.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-tweet-filter/index.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/angular-sortable-view/src/angular-sortable-view.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/directives/fixedBar.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/directives/alertPopup.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/directives/markdowneditor.js" charset="utf-8"></script>
+
+
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'set-your-google-analytics-key-here', 'timtec.com.br');
+    ga('send', 'pageview');
+
+
+</script>
+
+    <script type="text/javascript" charset="utf-8">
+        (function(){
+            $(document).ready(function() {
+                if (!("ontouchstart" in window)) {
+                    $('.has-tooltip').tooltip();
+                }
+                // workaround to contact modal work with safari on ipad due to safari bug:
+                // http://getbootstrap.com/getting-started/#support-fixed-position-keyboards
+                if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                    $('.modal').on('show.bs.modal', function () {
+                        // Position modal absolute and bump it down to the scrollPosition
+                        $(this).css({
+                              position: 'absolute',
+                              marginTop: $(window).scrollTop() + 'px',
+                              bottom: 'auto'
+                        });
+
+                        // Position backdrop absolute and make it span the entire page
+                        // Also dirty, but we need to tap into the backdrop after Boostrap
+                        // positions it but before transitions finish.
+                        setTimeout(function () {
+                            $('.modal-backdrop').css({
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: Math.max(
+                                    document.body.scrollHeight, document.documentElement.scrollHeight,
+                                    document.body.offsetHeight, document.documentElement.offsetHeight,
+                                    document.body.clientHeight, document.documentElement.clientHeight
+                                ) + 'px'
+                            });
+                        }, 0);
+                    });
+                }
+            });
+        })();
+    </script>
+</head>
+<body id="notadmin"  class="anonymous">
+
+
+
+
+
+<header class="site-header" role="navigation">
+    <nav class="site-nav">
+    </nav>
+    <div class="site-logo">
+        <h1>
+            <a><img src="/static/img/site-logo-black.png" alt="TIM Tec" class="img-responsive"></a>
+            <span>ambiente de educação a distância</span>
+        </h1>
+    </div>
+    <div class="animals">
+        <div class="snail"></div><div class="elephant"></div><div class="turtle"></div>
+        <div class="snake"></div><div class="pig"></div><div class="duck"></div>
+    </div>
+    <div class="color-line"></div>
+
+</header>
+
+<div class="modal fade" id="modal-contact">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Contact</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal contact-form" method="post" action="/contact">
+                    <input type='hidden' name='csrfmiddlewaretoken' value='uBDs1Z8qfLEXg0P5GovQLQDjCrjNACYM' />
+                    <div class="form-group">
+    <label class="col-lg-4 control-label">Sou</label>
+    <div class="col-lg-8">
+        <select class="form-control" name="occupation">
+            <option>Coordenadora</option>
+            <option>Gestor</option>
+            <option>Outro</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Quero falar sobre</label>
+    <div class="col-lg-8">
+        <select class="form-control" name="subject">
+            <option>Dúvidas sobre o conteúdo do AVA</option>
+            <option>Dúvidas sobre o Projeto Paralapracá</option>
+            <option>Problemas no acesso de usuários</option>
+            <option>Certificados</option>
+            <option>Sugestões, elogios ou reclamações</option>
+            <option>Outro assunto</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Nome</label>
+    <div class="col-lg-8">
+        <input required type="text" class="form-control" name="name">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Email</label>
+    <div class="col-lg-8">
+        <input required type="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Mensagem</label>
+    <div class="col-lg-8">
+        <textarea required class="form-control" rows="6" name="message"></textarea>
+    </div>
+</div>
+
+                    <div class="submit">
+                        <button type="reset" class="btn btn-sm btn-warning clean">Limpar</button>
+                        <button type="submit" class="btn btn-sm btn-success save">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+    <div class="wrapper wrapper-bg home">
+
+
+<div ng-app="core" ng-controller="HomeCtrl">
+    <section class="blocks">
+
+        <div class="line">
+            <div class="welcome">
+                <h2>O AVA está em manutenção e volta daqui a pouco.</h2>
+                <p></p>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+    </div>
+
+
+
+
+<!-- FOOTER -->
+<div class="site-footer">
+    <!--<p class="legal-text">Texto legal:  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>-->
+
+    <ul class="logos">
+        <a href="http://avante.org.br/"><li><img src="/static/img/logo-avante.png" alt="AVANTE"></li></a>
+        <a href="http://www.institutocea.org.br/"><li><img src="/static/img/logo-institutocea.png" alt="Instituto C&A" width="130"></li></a>
+    </ul>
+</div>
+<!-- END FOOTER -->
+
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            var $modal = $("#login-modal");
+            var $next = $modal.find('input[name=next]');
+            $('a.js-login-required').click(function(e){
+                $next.val($(this).attr('href'));
+                $modal.modal();
+                return false;
+            });
+            $('.dropdown-menu form').click(function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="/static/debug_toolbar/css/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="/static/debug_toolbar/css/toolbar.css" type="text/css" />
+
+<!-- Prevent our copy of jQuery from registering as an AMD module on sites that use RequireJS. -->
+<script src="/static/debug_toolbar/js/jquery_pre.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="/static/debug_toolbar/js/jquery_post.js"></script>
+
+
+</body>
+</html>

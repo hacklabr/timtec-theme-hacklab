@@ -1,0 +1,73 @@
+// Actions menu
+// --------------------------------------------------
+
+.actions-menu {
+    background-color: $gray-lighter;
+    height: 46px;
+    padding: 10px 0;
+    position: relative;
+    @media screen and (min-width: $screen-sm-min) {
+        height: 52px;
+    }
+    .container-fluid {
+        position: relative;
+    }
+    .status {
+        margin-left: 40px;
+        margin-right: 10px;
+    }
+    .label {
+        background-color: darken($gray-lighter, 10%);
+        color: $gray-darker;
+        font-size: 11px;
+        font-weight: normal;
+        margin-right: -5px;
+        padding: 10px 12px;
+        text-transform: uppercase;
+    }
+    @media screen and (max-width: $screen-xs-max) {
+        margin-top: 0;
+    }
+    .actions-buttons {
+        display: inline-block;
+        &.align-left {
+            float: left;
+        }
+        &.align-right {
+            float: right;
+        }
+    }
+    .tt-popup {
+        position: absolute;
+        left: 15px;
+        right: 15px;
+        .alert {
+            margin-bottom: 0;
+            padding: 7px 15px;
+            .close {
+                padding: 4px 0;
+            }
+        }
+    }
+}
+.actions-menu-scroll {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 60px !important;
+    z-index: 900;
+    @media screen and (min-width: $screen-sm-min) {
+        left: 100px;
+        top: 80px !important;
+    }
+}
+.actions-menu-message {
+    background-color: transparent !important;
+    height: 32px;
+    text-align: center;
+    .tt-popup {
+        float: none;
+        text-align: center;
+    }
+}
+// END ACTIONS

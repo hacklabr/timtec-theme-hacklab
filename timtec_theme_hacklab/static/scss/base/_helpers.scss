@@ -1,0 +1,220 @@
+// Helpers
+// --------------------------------------------------
+// generic and multi-purpose classes and placeholders
+
+//== Icon's placeholders
+// 
+%icon {
+    &-add {
+        @include icon(before, add);
+    }
+    &-add-image {
+        @include icon(before, thumbnail);
+    }
+    &-add-video {
+        @include icon(before, video);
+    }
+    &-angle-right {
+        @include icon(after, angle-right);
+    }
+    &-attention {
+        @include icon(before, attention);
+    }
+    &-backward {
+        @include icon(before, backward);
+    }
+    &-briefcase {
+        @include icon(before, briefcase);
+    }
+    &-caret-down {
+        @include icon(after, caret-down);
+    }
+    &-caret-up {
+        @include icon(after, caret-up);
+    }
+    &-chevron-down {
+        @include icon(after, chevron-down);
+    }
+    &-chevron-left {
+        @include icon(before, chevron-left);
+    }
+    &-chevron-right {
+        @include icon(before, chevron-right);
+    }
+    &-chevron-up {
+        @include icon(after, chevron-up);
+    }
+    &-chat {
+        @include icon(before, chat);
+    }
+    &-checked {
+        @include icon(before, checked);
+    }
+    &-checkmark {
+        @include icon(before, checkmark);
+    }
+    &-compress {
+        @include icon(after, compress);
+    }
+    &-courses {
+        @include icon(before, courses);
+    }
+    &-delete {
+        @include icon(before, delete);
+    }
+    &-discussion {
+        @include icon(before, discussion);
+    }
+    &-download {
+        @include icon(before, download);
+    }
+    &-edit {
+        @include icon(before, edit);
+    }
+    &-expand {
+        @include icon(after, expand);
+    }
+    &-file {
+        @include icon(before, file);
+    }
+    &-film {
+        @include icon(before, film);
+    }
+    &-filter {
+        @include icon(before, filter);
+    }
+    &-forum {
+        @include icon(before, forum);
+    }
+    &-forward {
+        @include icon(after, forward);
+    }
+    &-goback {
+        @include icon(before, goback);
+    }
+    &-help {
+        @include icon(before, help);
+    }
+    &-home {
+        @include icon(before, home);
+    }
+    &-like {
+        @include icon(before, like);
+    }
+    &-link {
+        @include icon(before, link);
+    }
+    &-list {
+        @include icon(before, list);
+    }
+    &-login {
+        @include icon(before, login);
+    }
+    &-logout {
+        @include icon(before, logout);
+    }
+    &-materials {
+        @include icon(before, materials);
+    }
+    &-messages {
+        @include icon(before, messages);
+    }
+    &-map-pin {
+        @include icon(before, map-pin);
+    }
+    &-new-topic {
+        @include icon(before, new-topic);
+    }
+    &-notes {
+        @include icon(before, notes);
+    }
+    &-notifications {
+        @include icon(before, notifications);
+    }
+    &-occupation {
+        @include icon(before, occupation);
+    }
+    &-profile {
+        @include icon(before, profile);
+    }
+    &-record {
+        @include icon(before, record);
+    }
+    &-register {
+        @include icon(before, register);
+    }
+    &-reply {
+        @include icon(before, reply);
+    }
+    &-repositories {
+        @include icon(before, repositories);
+    }
+    &-schedule {
+        @include icon(before, schedule);
+    }
+    &-search {
+        @include icon(before, search);
+    }
+    &-see-more {
+        @include icon(before, eye);
+    }
+    &-site {
+        @include icon(before, site);
+    }
+    &-sort {
+        @include icon(before, sort);
+    }
+    &-stats {
+        @include icon(before, stats);
+    }
+    &-times {
+        @include icon(before, times);
+    }
+    &-tools {
+        @include icon(before, tools);
+    }
+    &-trash {
+        @include icon(before, trash);
+    }
+    &-undo {
+        @include icon(before, undo);
+    }
+    &-use {
+        @include icon(before, use);
+    }
+}
+
+// List styles
+
+%list-inline {
+    padding-left: 0;
+    list-style: none;
+    margin: 0 0 0 -5px;
+
+    li {
+        display: inline-block;
+    }
+}
+
+// notification bubble
+.notification-bubble {
+    display: block;
+    background-color: $brand-warning;
+    border-radius: 100%;
+    color: #fff;
+    font-size: 10px;
+    height: 15px;
+    line-height: 15px;
+    position: absolute;
+    top: -3px;
+    right: -1px;
+    text-align: center;
+    width: 15px;
+}
+
+// this class exists to circunvent a flash + youtube api error
+// in which if the video div is really hidden the api breaks
+.hidder {
+    position: absolute;
+    left: -3000px;
+}

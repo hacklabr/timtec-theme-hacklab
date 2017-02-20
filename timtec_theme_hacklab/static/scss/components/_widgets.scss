@@ -1,0 +1,235 @@
+// Widget's common styles
+// --------------------------------------------------
+
+.widget-topbar {
+    background-color: $brand-primary;
+    color: #fff;
+    margin: -15px -15px 15px -15px !important;
+    padding: 10px 0;
+
+    .title {
+        font-family: $font-family-sans-serif;
+        font-size: $font-size-base;
+        font-weight: $extra-bold;
+        margin: 2px 0 10px;
+        @media screen and (min-width: $screen-md-min) {
+            margin: 2px 0;
+        }
+    }
+
+    // pull right the last elements in large screens
+    .column {
+        &:last-child {
+            @media screen and (min-width: $screen-md-min) {
+                text-align: right;
+            }
+        }
+    }
+
+    &.breadcrumb {
+        background-color: transparent;
+        border-radius: 0px;
+        border-top: 4px solid $brand-primary;
+        margin-bottom: 5px;
+        padding: 7px 0;
+        .line {
+            border-bottom: 1px solid $brand-primary;
+            color: $brand-primary;
+            margin: 0 15px; 
+            padding-bottom: 7px;
+            .title {
+                font-size: 18px;
+                font-weight: $semi-bold;
+                margin: 5px 0;
+            }
+        }
+    }
+}
+
+.widget-header {
+    .btn {
+        margin-top: 10px;
+    }
+    @media screen and (min-width: $screen-sm-min) {
+        .btn + .btn {
+            margin-left: 10px;
+        }
+    }
+}
+
+.widget-title {
+    font-size: 6.5vmax;
+    font-weight: bold;
+    line-height: 90%;
+    margin: 0 20px 0 0;
+    @media screen and (min-width: $screen-xs-min) {
+        display: inline-block;
+        font-size: 50px;
+    }
+}
+
+.widget-filter {
+    margin: 10px 0;
+
+    @media screen and (min-width: $screen-md-min) {
+        float: right;
+    }
+
+    label {
+        font-weight: 700;
+        margin-right: 10px;
+    }
+
+    .form-control {
+        font-size: $font-size-base;
+        min-width: 230px;
+        padding: 0px 15px;
+    }
+}
+
+.section-title {
+    border-bottom: 1px solid;
+    font-family: $font-family-sans-serif;
+    font-size: $font-size-base;
+    font-weight: $bold;
+    margin: 10px 0 20px;
+    padding-bottom: 5px;
+    @media screen and (min-width: $screen-sm-min) {
+        margin-top: 20px;
+    }
+
+    a + .btn {
+        margin-left: 10px;
+    }
+}
+
+// Courses widget
+// --------------------------------------------------
+
+.courses-widget {
+    @include card(rgba($gray,0.5));
+    color: #000;
+
+    .widget-filter {
+        .form-control {
+            &:focus {
+                border-color: $brand-primary;
+            }
+        }
+    }
+
+    @media screen and (min-width: $screen-sm-min) {
+        .course-thumb, .course-progress {
+            padding-right: 5px !important;
+        }
+        .course-description, .progress-label {
+            padding-left: 5px !important;
+        }
+    }
+
+    .all-courses {
+        padding-bottom: 15px;
+        text-align: center;
+    }
+}
+
+// Forums widget
+// --------------------------------------------------
+
+.forums-widget {
+    @include card(rgba(#fff,0.3));
+
+    .widget-filter {
+        @include icon(after, search);
+        position: relative;
+        &:after {
+            color: $brand-primary;
+            font-size: $font-size-large;
+            position: absolute;
+            right: 15px;
+            top: 5px;
+        }
+    }
+    .forum-update {
+        background-color: $brand-primary;
+        color: #fff;
+        font-weight: $extra-bold;
+        margin: 0 0 20px 0; 
+        padding: 20px;
+    }
+    .user-update {
+        margin-bottom: 20px;
+        @media screen and (min-width: $screen-sm-min) {
+            margin-bottom: 10px;
+        }
+        @media screen and (min-width: $screen-md-min) {
+            height: 80px;
+        }
+        .last-update {
+            display: block;
+            margin-bottom: 2px;
+            @media screen and (min-width: $screen-sm-min) {
+                display: inline-block;
+                margin-bottom: 0;
+            }
+        }
+    }
+    .info {
+        margin-left: 50px;
+    }
+}
+
+// Messages widget
+// --------------------------------------------------
+
+.messages-widget {
+    @include card(rgba($brand-primary,0.7));
+    color: #fff;
+    .widget-topbar {
+        .title {
+            font-size: 18px;
+            font-weight: $bold;
+            @media screen and (min-width: $screen-sm-min) {
+                margin: 7px 0 0 15px;
+            }
+        }
+        .notification-bubble {
+            display: inline-block;
+            font-size: $font-size-base;
+            line-height: 18px;
+            height: 20px;
+            width: 20px;
+            position: static;
+            vertical-align: middle;
+        }
+    }
+    .messages {
+        @media screen and (min-width: $screen-sm-min) {
+            margin: 30px 15px 15px;
+        }
+        .message {
+            .message-body {
+                margin: 0 0 20px 10px;
+                padding-left: 10px;
+            }
+            .message-course {
+                @extend %icon-messages;
+                font-family: $font-family-sans-serif; 
+                font-size: $font-size-base;
+                &:before {
+                    font-size: $font-size-large;
+                    vertical-align: text-top;
+                    @media screen and (min-width: $screen-sm-min) {
+                        margin-right: 10px;
+                    }
+                }
+            }
+            .message-subject {
+                font-size: 20px;
+                @media screen and (min-width: $screen-sm-min) {
+                    margin: 0px 30px 10px;
+                }
+            }
+        }
+    }
+}

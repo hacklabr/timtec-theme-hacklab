@@ -1,0 +1,41 @@
+<div class="form-group">
+    <label class="col-lg-4 control-label">Sou</label>
+    <div class="col-lg-8">
+        <select class="form-control" name="{{contact_form.occupation.name}}">
+            <option>Coordenadora</option>
+            <option>Gestor</option>
+            <option>Outro</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Quero falar sobre</label>
+    <div class="col-lg-8">
+        <select class="form-control" name="{{contact_form.subject.name}}">
+            <option>Dúvidas sobre o conteúdo do AVA</option>
+            <option>Dúvidas sobre o Projeto Paralapracá</option>
+            <option>Problemas no acesso de usuários</option>
+            <option>Certificados</option>
+            <option>Sugestões, elogios ou reclamações</option>
+            <option>Outro assunto</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Nome</label>
+    <div class="col-lg-8">
+        <input required type="text" class="form-control" name="{{contact_form.name.name}}">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Email</label>
+    <div class="col-lg-8">
+        <input required type="email" class="form-control" name="{{contact_form.email.name}}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Mensagem</label>
+    <div class="col-lg-8">
+        <textarea required class="form-control" rows="6" name="{{contact_form.message.name}}"></textarea>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+// Mixins
+// --------------------------------------------------
+
+//== Icons
+//
+// For adding font icons to elements using CSS pseudo-elements
+// http://jaydenseric.com/blog/fun-with-sass-and-font-icons
+@mixin icon($position: before, $icon: false, $styles: true) {
+    @if $position == both {
+        $position: 'before, &:after';
+    }
+    // Either a :before or :after pseudo-element, or both, defaulting to :before
+    &:#{$position} {
+        @if $icon {
+            // A particular icon has been specified
+            content: "#{map-get($icons, $icon)}";
+        }
+        @if $styles {
+            // Supportive icon styles required
+            font-style: normal;
+            font-weight: normal;
+            font-family: $icon-font-family;
+        }
+        // Include any extra rules supplied for the pseudo-element
+        @content;
+    }
+}
+
+//== Calcule width
+//
+@mixin calculate-width($value:0) {
+  width:-moz-calc('100% - #{$value}');
+  width:-webkit-calc('100% - #{$value}');
+  width:calc('100% - #{$value}');
+}
+
+//== Define vertical align
+//
+@mixin vertical-align($position) {
+  display:inline-block;
+  vertical-align:$position;
+}
+
+// Add margins and paddings
+//
+@mixin bottom($margin:0, $padding:0) {
+  margin-bottom:$margin !important;
+  padding-bottom:$padding !important;
+}
+
+@mixin left($margin:0, $padding:0) {
+  margin-left:$margin !important;
+  padding-left:$padding !important;
+}
+
+@mixin right($margin:0, $padding:0) {
+  margin-right:$margin !important;
+  padding-right:$padding !important;
+}
+
+@mixin top($margin:0, $padding:0) {
+  margin-top:$margin !important;
+  padding-top:$padding !important;
+}
+
+//== Card mixin
+//
+@mixin card($background-color) {
+  background-color: $background-color;
+  padding: 17px;
+}
+
+//== Button mixin
+//
+@mixin button-hover($color,$color-hover,$bg-color,$bg-color-hover) {
+  color: $color;
+  cursor: pointer;
+  background-color: $bg-color;
+  @include transition(all 0.5s ease);
+  &:before {
+    color: $color;
+  }
+  &:hover, &:focus, &:active {
+    color: $color-hover;
+    background-color: $bg-color-hover;
+    &:before {
+      color: $color-hover;
+    }
+  }
+}
+
+@mixin link-hover($color,$color-hover,$border,$border-hover) {
+  color: $color;
+  border-bottom-color: $border !important;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  cursor: pointer;
+  line-height: 1.2;
+  @include transition(all 0.2s ease);
+  &:before {
+    color: $color;
+  }
+  &:hover, &:focus, &:active {
+    color: $color-hover;
+    border-bottom-color: $border-hover !important;
+    &:before {
+      color: $color-hover;
+    }
+  }
+}

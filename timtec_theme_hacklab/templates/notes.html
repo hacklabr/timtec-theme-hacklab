@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load compress %}
+{% load static %}
+{% load staticfiles %}
+
+{% block js %}
+    {{ block.super }}
+    {% compress js %}
+        <!-- Notes -->
+        <script type="text/javascript" src="{% static 'js/notes/app.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/notes/controllers.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/notes/services.js' %}"></script>
+    {% endcompress %}
+{% endblock %}
+
+{% block wrapper_classes %}
+notes my-notes
+{% endblock %}
+
+{% block body_attrs %}
+  ng-app="notes"
+{% endblock %}
+
+{% block content %}
+
+<!-- CONTAINER -->
+<div class="my-notes page container-fluid" ng-controller="UserNotesCtrl" ng-cloak>
+
+    <section class="content">
+        {% block notes_header %}
+        <div class="page-header">
+            <h2><i class="fa fa-angle-double-right"></i> {% trans "My Notes" %}</h2>
+        </div>
+        {% endblock %}
+
+        <p ng-if="courses.length == 0">
+            {% trans "You have not made any notes yet." %}
+        </p>
+        {% verbatim %}
+        <div class="courses courses-list" ng-repeat="course in courses">
+            <div class="line">
+                <div class="header">
+                    <h3 class="course-title">{{course.name}}</h3>
+                    <a href="/course/{{course.slug}}/intro/" class="btn btn-xs btn-primary">Início</a>
+                    <a href="/course/{{course.slug}}/resume/" class="btn btn-xs btn-info">Continuar curso</a>
+                </div>
+                <div class="notes-info">
+                    <span translate
+                          translate-n="course.course_notes_number"
+                          translate-plural="você tem {{$count}} notas">você tem 1 nota</span>
+                    <button class="btn btn-link btn-sm"
+                            ng-init="course.show_notes=false"
+                            ng-class="course.show_notes ? 'hide-all': 'show-all'"
+                            ng-click="course.show_notes=!course.show_notes">
+                        <span ng-show="!course.show_notes"
+                          translate
+                          translate-n="course.course_notes_number"
+                          translate-plural="ver todas">ver</span>
+                        <span ng-show="course.show_notes">ocultar</span>
+                    </button>
+                </div>
+                <div ng-repeat="lesson in course.lessons_notes" ng-show="course.show_notes">
+                  <h4 class="lesson-title">{{ lesson.name }}</h4>
+                  <div class="notes-list" ng-repeat="unit in lesson.units_notes">
+                      <h5 class="unit-title">{{ unit.name }}</h5>
+                      <div class="note-content">
+                          <div class="row">
+                              <div class="col-sm-7 col-md-8 col-lg-9">{{ unit.user_note.text }}</div>
+                              <div class="col-sm-5 col-md-4 col-lg-3">
+                                  <!--<a ng-href="/course/{{ course.slug }}/lesson/{{ lesson.slug }}/#/{{ unit.id }}"-->
+                                     <!--class="btn btn-xs btn-success edit">editar (vai para o curso)</a>-->
+                                  <button class="btn btn-xs btn-danger delete"
+                                          ng-click="delele_note(course, lesson, unit, unit.user_note)">descartar</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        {% endverbatim %}
+    </section>
+</div>
+<!-- CONTAINER -->
+
+{% endblock %}

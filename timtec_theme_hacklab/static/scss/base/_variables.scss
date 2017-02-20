@@ -1,0 +1,123 @@
+// Variables
+// --------------------------------------------------
+// Override Boostrap's variables
+
+
+//== Typography
+
+$font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+//** By default, this inherits from the `<body>`.
+$headings-font-family:    "Questrial", $font-family-sans-serif !default;
+
+//== Iconography
+//
+//## Specify custom location and filename of the included FontAwesome icon font. Useful for those including Bootstrap via Bower.
+
+//** Load fonts from this directory.
+$fa-font-path:        "../font-awesome/fonts" !default; // for referencing
+
+//** File name for all font files.
+$icon-font-name:        "fontawesome-webfont" !default;
+//** Element ID within SVG icon file.
+$icon-font-svg-id:      "fontawesomeregular" !default;
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+$link-hover-decoration: none !default;
+
+// Declare specifc project variables
+// --------------------------------------------------
+
+//== Specific component colors
+//
+//** Site header background color
+$site-header-bg-color:      #fff !default;
+
+//** Main navigation background color
+$main-nav-bg-color:         #aaa !default;
+
+//** User info background color
+$user-info-bg-color:        $main-nav-bg-color !default;
+
+//== Icons
+
+//** Set icon's font family
+$icon-font-family:      "FontAwesome";
+
+//** Map icon names to font unicode characters
+$icons: (
+    add: "\f055",
+    angle-right: "\f105",
+    attention: "\f06a",
+    backward: "\f04a",
+    briefcase: "\f0b1",
+    caret-down: "\f0d7",
+    caret-up: "\f0d8",
+    chapters: "\f02d",
+    chat: "\f27a",
+    chevron-down: "\f078",
+    chevron-left: "\f053",
+    chevron-right: "\f054",
+    chevron-up: "\f077",
+    checked: "\f058",
+    checkmark: "\f00c",
+    compress: "\f066",
+    courses: "\f12e",
+    delete: "\f057",
+    discussion: "\f086",
+    download: "\f019",
+    edit: "\f044",
+    eye: "\f06e",
+    expand: "\f065",
+    file: "\f016",
+    film: "\f008",
+    filter: "\f0b0",
+    forum: "\f10d",
+    forward: "\f04e",
+    help: "\f059",
+    home: "\f015",
+    goback: "\f053",
+    like: "\f004",
+    link: "\f0c1",
+    list: "\f00b",
+    login: "\f090",
+    logout: "\f08b",
+    materials: "\f0f6",
+    messages: "\f0a1",
+    map-pin: "\f041",
+    new-topic: "\f090",
+    notes: "\f14b",
+    notifications: "\f06a",
+    occupation: "\f0b1",
+    profile: "\f007",
+    record: "\f0ea",
+    register: "\f055",
+    reply: "\f112",
+    repositories: "\f07b",
+    schedule: "\f0eb",
+    search: "\f002",
+    site: "\f0ac",
+    sort: "\f0dc",
+    stats: "\f012",
+    students: "\f19d",
+    times: "\f00d",
+    thumbnail: "\f03e",
+    tools: "\f013",
+    trash: "\f1f8",
+    undo: "\f0e2",
+    use: "\f0c9",
+    video: "\f008",
+);
+
+//== Typography
+//
+//## Font weight variables
+
+$lighter:           300;
+$normal:            400;
+$semi-bold:         600;
+$bold:              700;
+$extra-bold:        800;

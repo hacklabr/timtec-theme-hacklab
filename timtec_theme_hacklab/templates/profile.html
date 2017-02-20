@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block js %} {{block.super}}
+<script type="text/javascript" src="{% static 'js/profile/profile.app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/profile/profile.controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/profile/profile.services.js' %}"></script>
+<script type="text/javascript" src="{% static 'angular-ui-tinymce/src/tinymce.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+<script type="text/javascript" src="{% static 'tinymce-dist/tinymce.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/ui.tinymce.paralapraca.config.js' %}"></script>
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block body_attrs %}
+  ng-app="profile"
+{% endblock %}
+
+{% block content %}
+<div class="profile page container-fluid" ng-controller="UserProfileController" ng-cloak>
+    <div ng-hide="user_profile.$resolved">
+        <p><i class="loading fa fa-refresh fa-spin"></i></p>
+    </div>
+    <div ng-show="user_profile" ng-if="user_profile">
+        <div class="page-header">
+            <h2><i class="fa fa-angle-double-right"></i> {% trans "Profile" %}</h2>
+        </div>
+
+        {% verbatim %}
+        <div class="profile-picture" style="background-image: url({{ user_profile.picture }});">
+        </div>
+
+        <div class="profile-edit" ng-show="user_profile.is_current_user">
+            <a href="/profile/edit/" class="btn btn-success btn-sm edit">editar perfil</a>
+        </div>
+
+        <h2 class="profile-name">{{user_profile.first_name}} {{user_profile.last_name}}</h2>
+        <div class="profile-info">
+            <p ng-if="user_profile.occupation" class="occupation">
+                {{user_profile.occupation}}
+            </p>
+            <p ng-if="user_profile.city" class="city">
+                {{user_profile.city}}
+            </p>
+            <p class="site" ng-if="user_profile.site">
+                <a href="{{user_profile.site}}" target="_blank">{{user_profile.site}}</a>
+            </p>
+        </div>
+        {% endverbatim %}
+        <!--<span>2 cursos finalizados</span> | <span>1 certificado de conclusão</span>-->
+        <div class="profile-bio">
+            {% verbatim %}
+            <p ng-bind-html="user_profile.biography"></p>
+            {% endverbatim %}
+        </div>
+
+    </div>
+
+     <div class="profile-certificates">
+
+    <div ng-if="valid_certificates">
+
+        <div class="page-header">
+            <h2><i class="fa fa-angle-double-right"></i>Cursos finalizados</h2>
+        </div>
+
+        <div class="widget">
+            {%verbatim%}
+            <div class="courses line two-column fifty-fifty">
+                <div class="course-box column" ng-repeat="certificate in user_profile.certificates | filter: { approved: 'true' }">
+                    <div class="line two-column">
+                        <div class="course-thumb column">
+                            <div class="course-thumb-bg" style="background-image: url({{certificate.course.home_thumbnail_url}});"></div>
+                            <a class="btn see-certificate" href="/certificate/{{certificate.link_hash}}/" target="_blank">ver
+                            {{ certificate.type==='receipt' ? 'comprovante' : 'certificado' }}</a>
+                        </div>
+                        <div class="course-description column">
+                            <div class="progress-label">módulo concluído</div>
+                            <h3 class="course-title">{{ certificate.course.name }}</h3>
+                            <div class="course-info">
+                                <p><b>Finalizado em:</b> {{ certificate.created_date | date : "d/M/yyyy"}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endverbatim%}
+
+    </div>
+</div>
+{% endblock %}

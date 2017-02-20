@@ -1,0 +1,619 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load timtec_markdown %}
+{% load is_assistant_or_coordinator %}
+{% load compress %}
+{% load units_ratio %}
+
+
+{% if in_admin %}
+    {% block js %} {{block.super}}
+    {% compress js %}
+    <script type="text/javascript" src="{% static 'js/new-course/app.js' %}">// must be the 1º</script>
+    <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
+    <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/markdown/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/markdown/filters.js' %}"></script>
+    {% endcompress %}
+
+    <script>
+        window.course_id = {{ course.pk }};
+    </script>
+    {% endblock %}
+{% endif %}
+
+{% block body_attrs %}
+    {% if in_admin %}
+        ng-app="new-course"
+    {% else %}
+        ng-app="header"
+    {% endif %}
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-intro
+{% endblock %}
+
+{% block content %}
+
+<!-- COURSE -->
+<div class="course course-intro" {% if in_admin %}ng-controller="CourseEditController"{% endif %}>
+
+    {% if in_admin %}
+        <!-- ACTIONS -->
+        <div class="actions-menu" fixed-bar>
+            <div class="container-fluid">
+                <div class="actions-buttons align-left">
+                    <!-- LEFT BUTTON GROUP -->
+                    <button class="btn btn-sm btn-danger btn-inverse delete" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">
+                        <span class="visible-xs-inline">apagar</span>
+                        <span class="hidden-xs">apagar módulo</span>
+                    </button>
+                    <button class="btn btn-sm btn-primary btn-inverse download" title="{% trans 'Export course and download' %}" ng-click="export_course()">
+                        <span class="visible-xs-inline">exportar</span>
+                        <span class="hidden-xs">exportar módulo</span>
+                    </button>
+                    <!-- END LEFT BUTTON GROUP -->
+                </div>
+                {% include 'administration/_alert.html' %}
+                <div class="actions-buttons align-right">
+                    <!-- RIGHT BUTTON GROUP -->
+                    <button class="btn btn-sm btn-primary btn-inverse save" ng-click="saveCourse()">
+                        <span class="visible-xs-inline">salvar</span>
+                        <span class="hidden-xs">salvar alterações</span>
+                    </button>
+                    <!-- RIGHT BUTTON GROUP -->
+                </div>
+            </div>
+        </div>
+        <!-- END ACTIONS -->
+    {% endif %}
+
+    {% if in_admin %}
+    <!-- HEADER -->
+        {% include "_admin_header_inline.html" with course=course course_intro_admin=1 %}
+    <!-- END HEADER -->
+    {% elif user|is_assistant_or_coordinator:course or user_is_enrolled and course.has_started %}
+        {% include "_course-header-inline.html"  with course=course %}
+    {% else %}
+        {% include "_go-to-course-button-inline.html"  with course=course %}
+    {% endif %}
+
+    <!-- COURSE-CONTENT -->
+    <section class="course-content">
+
+        <div class="course-video" ng-init="mediaSection='video'">
+        {% if in_admin %}
+            <!-- ADD CONTENT -->
+            <div class="add-content">
+                <div class="help-text">Qual é a melhor opção para apresentar esse módulo?</div>
+                <button class="btn btn-primary add-video"
+                        ng-class="{'btn-inverse':mediaSection=='video'}"
+                        ng-click="mediaSection='video'">{% trans 'Video' %}</button>
+
+                <button class="btn btn-primary add-image"
+                        ng-class="{'btn-inverse':mediaSection=='thumbnail'}"
+                        ng-click="mediaSection='thumbnail'">{% trans 'Thumbnail' %}</button>
+
+                <button class="btn btn-primary add-image"
+                        ng-class="{'btn-inverse':mediaSection=='homethumbnail'}"
+                        ng-click="mediaSection='homethumbnail'">{% trans 'Home thumbnail' %}</button>
+            </div>
+            <!-- END ADD CONTENT -->
+
+            <section class="course-thumbnail" ng-show="mediaSection=='thumbnail'" ng-init="thumbfile=null">
+                <div ng-show="addThumb" ng-init="addThumb=(thumbfile===null)">
+                    <div class="add-thumbnail">
+                        <div class="centered">
+                            <div class="form-group">
+                                <i class="fa fa-picture-o fa-4x"></i>
+                                <h1 class="bottom top">{% trans 'Thumbnail' %}</h1>
+                                <p>({% trans "min-width" %}: 845px)</p>
+
+                                <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
+                            </div>
+
+                            <button class="btn btn-danger delete"
+                                    ng-click="thumbfile=null; addThumb=!course.thumbnail_url">{% trans 'Cancel' %}</button>
+
+                            <button class="btn btn-success save"
+                                    ng-click="addThumb=(thumbfile===null); saveThumb()">{% trans 'Add' %}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="!addThumb">
+                    <div class="add-thumbnail">
+                        <div class="centered">
+                            <img preview-image ng-model="thumbfile" class="img-responsive" ng-show="thumbfile"/>
+                            {% verbatim %}
+                            <img ng-src="{{course.thumbnail_url}}" class="img-responsive" ng-show="!thumbfile"/>
+                            {% endverbatim %}
+
+                            <button class="btn-edit-thumbnail btn btn-success"
+                                    ng-click="addThumb=true">{% trans 'Change thumbnail' %}</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Home thumbnail -->
+            <section class="course-thumbnail" ng-show="mediaSection=='homethumbnail'" ng-init="home_thumbfile=null">
+                <div ng-show="addHomeThumb" ng-init="addHomeThumb=(home_thumbfile===null)">
+                    <div class="add-thumbnail">
+                        <div class="centered">
+                            <div class="form-group">
+                                <i class="fa fa-picture-o fa-4x"></i>
+                                <h1 class="bottom top">{% trans 'Home thumbnail' %}</h1>
+                                <p></p>
+
+                                <file ng-model="home_thumbfile" name="home_thumbnail" class="form-control"></file>
+                            </div>
+                            <button class="btn btn-danger btn-lg uppercase"
+                                    ng-click="home_thumbfile=null; addHomeThumb=!course.home_thumbnail_url">{% trans 'Cancel' %}</button>
+
+                            <button class="btn btn-success btn-lg uppercase"
+                                    ng-click="addHomeThumb=(home_thumbfile===null); saveHomeThumb()">{% trans 'Add' %}</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="!addHomeThumb">
+                    <div class="add-thumbnail">
+                        <div class="centered">
+                            <img preview-image ng-model="home_thumbfile" class="img-responsive" />
+                            {% verbatim %}
+                            <img ng-src="{{course.home_thumbnail_url}}" class="img-responsive" ng-show="!home_thumbfile"/>
+                            {% endverbatim %}
+                            <button class="btn btn-success btn-edit-thumbnail"
+                                ng-click="addHomeThumb=true">{% trans 'Change thumbnail' %}</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- End home thumbnail -->
+
+            <!--  COURSE-VIDEO  -->
+            <section class="video" ng-show="mediaSection=='video'">
+
+                <div ng-show="course.intro_video.youtube_id && !playerReady">
+                    <div class="waiting textcenter jumbotron" style="height: 515px">
+                        <div class="middle">
+                            <i class="fa fa-refresh fa-5x"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-class="{'hidder': !(course.hasVideo() && playerReady)}">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <p class="video-title editable-content" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                        </div>
+                        <div class="col-lg-2 textcenter">
+                            <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                    ng-click="course.intro_video.youtube_id=''">{% trans 'Change video' %}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-video-intro" ng-show="!course.intro_video.youtube_id">
+                    <div class="centered">
+                        <div class="form-group">
+                            <i class="fa fa-youtube-play fa-4x"></i>
+                            <h1>{% trans 'Introduction video' %}</h1>
+                            <input type="text" tabindex="8" ng-model="youtube_id" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger delete"
+                                    ng-click="course.intro_video.youtube_id=''">{% trans 'Cancel' %}</button>
+                            <button tabindex="9"
+                                    class="btn btn-success save"
+                                    ng-show="!course.intro_video.youtube_id"
+                                    ng-click="setCurrentUnitVideo()">{% trans 'Add' %}</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <!--  END COURSE-VIDEO  -->
+        {% else %}
+            <!-- COURSE-VIDEO -->
+            <section class="video embed-responsive embed-responsive-16by9" id="course-video">
+                {% with yid=course.intro_video.youtube_id %}
+                {% if yid %}
+                    <iframe id="youtube-player"
+                            type="text/html"
+                            src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque"
+                            allowfullscreen>
+                    </iframe>
+                {% elif course.thumbnail %}
+                    <img class="img-responsive" src="{{ course.thumbnail.url }}">
+                {% endif %}
+                {% endwith %}
+            </section>
+            <!-- END COURSE-VIDEO -->
+        {% endif %}
+        </div>
+
+        <!-- COURSE INFO -->
+        <div class="course-info">
+            <!-- COLUMN -->
+            <div class="column">
+                {% block course_info %}
+                <!-- COURSE-INFO -->
+                <section class="info">
+                    <!-- ABSTRACT -->
+                    <div class="abstract">
+                        <div class="primary-page-header first">
+                            <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> Apresentação</h3>
+                        </div>
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
+                        {% else %}
+                            {{course.abstract|timtec_markdown}}
+                        {% endif %}
+                    </div>
+                    <!-- END ABSTRACT -->
+
+                    <div class="another-info">
+                        <div class="secondary-page-header">
+                            {% if in_admin %}
+                                <div class="editable-secondary-title">
+                                  <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i>Por que fazer este módulo?</h3></div>
+                            {% else %}
+                                <h3><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i>Por que fazer este módulo?
+                            {% endif %}
+                        </div>
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="6" on-save="saveCourse()" title="{% trans 'Application' %}" content="course.application"></modalmarkdowneditor>
+                        {% else %}
+                            <div class="content">{{ course.application|timtec_markdown }}</div>
+                        {% endif %}
+                    </div>
+
+                </section>
+                <!-- END COURSE-INFO -->
+                {% endblock %}
+            </div>
+            <!-- END COLUMN -->
+
+            <!-- COLUMN -->
+            <div class="column">
+                <!-- COURSE-SUMMARY -->
+                <section class="summary">
+                    <!-- START DATE -->
+                    {% if in_admin %}
+                        <div class="secondary-page-header first">
+                            <h3>{% trans 'This course is' %}</h3>
+                        </div>
+
+                        <div class="course-status btn-group">
+                            <button class="btn published dropdown-toggle" data-toggle="dropdown"
+                            ng-if="course.isPublished()"><span class="status-label">{% trans 'Published' %}</span> <span class="caret"></span></button>
+
+                            <button class="btn draft dropdown-toggle" data-toggle="dropdown"
+                            ng-if="course.isDraft()"><span class="status-label">{% trans 'Draft' %}</span> <span class="caret"></span></button>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-if="course.isDraft()"><a ng-click="publishCourse()">{% trans 'Published' %}</a></li>
+                                <li ng-if="course.isPublished()"><a ng-click="set_course_as_draft()">{% trans 'Draft' %}</a></li>
+                            </ul>
+                        </div>
+                        {% verbatim %}
+                        <div class="secondary-page-header">
+                            <h3><i ng-class="{'blink-text-danger':errors.abstract}"
+                                   class="fa fa-angle-double-right"></i>
+
+                                <span class="percentage-bubble">{{course.min_percent_to_complete}}%</span>
+                                Progresso mínimo para certificado
+                            </h3>
+                        </div>
+                        {% endverbatim %}
+                        <div class="help-text">Arraste para esquerda ou direita. Mínimo de 50%.</div>
+                        <input type="range" max="100" min="50" class="percentage-input"
+                            ng-model="course.min_percent_to_complete" />
+
+                        <div class="secondary-page-header">
+                            <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i>Data de início</h3>
+                        </div>
+
+                        <div class="date-input input-group">
+                            <input type="text" class="form-control" ng-model="course.start_date" uib-datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" show-weeks="false" starting-day="0" placeholder="Escolha a data" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button" ng-click="opened = true"><span class="caret"></span></button>
+                            </span>
+                        </div>
+
+                        {% elif not course.has_started and course.start_date %}
+                        <div class="secondary-page-header">
+                            <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
+                        </div>
+                        <p>{{ course.start_date }}</p>
+                    {% endif %}
+
+                    <div class="secondary-page-header {% if not in_admin %}first{% endif %}">
+                        <h3><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "O que eu preciso saber?" %}</h3>
+                    </div>
+                    {% if in_admin %}
+                        <div class="help-text"><i class="fa fa-caret-down" aria-hidden="true"></i> Edite abaixo</div>
+                        <modalmarkdowneditor tabindex="8" on-save="saveCourse()" title="{% trans 'Estrutura do Curso' %}" content="course.structure"></modalmarkdowneditor>
+                    {% else %}
+                        <p>{{ course.structure|timtec_markdown }}</p>
+                    {% endif %}
+
+                    <!-- COURSE-INSTRUCTORS -->
+                    {%  include '_course_authors_inline.html' %}
+                    <!-- END COURSE-INSTRUCTORS -->
+
+                    <!-- CLASS PROFESSOR -->
+                    {%  include '_class-professors-inline.html' %}
+                    <!-- END CLASS PROFESSOR -->
+                </section>
+                <!-- END COURSE-SUMMARY -->
+            </div>
+            <!-- END COLUMN -->
+        </div>
+        <!-- END COURSE INFO -->
+
+        <!-- COURSE-LESSONS -->
+        {% block course_lessons %}
+            {% if in_admin %}
+
+            <section class="lessons lesson-list">
+                <!-- PAGE-HEADER-DOUBLE -->
+                <div class="primary-page-header">
+                    <h3><i class="fa fa-angle-double-right"></i> Capítulos</h3>
+
+                    <button class="btn btn-sm btn-primary btn-inverse sort" ng-click="organizingLessons=true" ng-show="!organizingLessons" >ordenar</button>
+
+                    <button class="btn btn-sm btn-danger btn-inverse delete" ng-show="organizingLessons" ng-click="organizingLessons=false">{% trans 'Cancel' %}</button>
+
+                    <button class="btn btn-sm btn-primary btn-inverse save" ng-show="organizingLessons" ng-click="saveAllLessons()">{% trans 'Save' %}</button>
+                </div>
+                <!-- END PAGE-HEADER-DOUBLE -->
+
+                <!--  LESSON  -->
+                <div class="lesson row" ng-repeat="lesson in lessons" ng-hide="organizingLessons">
+
+                    <div class="col-sm-3 hidden-xs">
+                        {% verbatim %}
+                        <img ng-src="{{ lesson.thumbnail }}" class="img-responsive">
+                        {% endverbatim %}
+                    </div>
+
+                    <div class="col-sm-9 col-xs-12">
+
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h4 class="title">
+                                    <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
+                                </h4>
+                                <p><i class="fa fa-youtube-play"></i> <small>{% verbatim %}{{ lesson.countVideos() }}{% endverbatim %} {% trans 'videos' %}</small> | <i class="fa fa-list"></i> <small>{% verbatim %}{{ lesson.countActivities() }}{% endverbatim %} {% trans 'activities' %}</small></p>
+                                <div class="description">
+                                    <div ng-bind-html="lesson.desc|markdown"></div>
+                                </div>
+                            </div>
+                            <div class="options col-sm-4">
+
+                                <!-- <div class="btn-group lesson-status" ng-show="lesson.status=='draft'">
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        ng-click="lesson.status='published'">
+                                        <i class="fa fa-users" aria-hidden="true"></i> {% trans 'Published' %}
+                                    </button>
+                                    <span class="btn btn-sm btn-primary btn-transparent">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i> {% trans 'Draft' %}
+                                    </span>
+                                </div>
+
+                                <div class="btn-group lesson-status" ng-show="lesson.status=='published'">
+                                    <span class="btn btn-sm btn-primary btn-transparent">
+                                        <i class="fa fa-users" aria-hidden="true"></i> {% trans 'Published' %}
+                                    </span>
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        ng-click="lesson.status='draft'">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i> {% trans 'Draft' %}
+                                    </button>
+                                </div> -->
+
+                                <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="btn btn-sm btn-primary btn-inverse edit">editar capítulo</a>
+                                <button class="btn btn-sm btn-danger btn-inverse delete" ng-click="deleteLesson(lesson)">apagar capítulo</button>
+                            </div>
+                        </div>
+
+                        <div class="lesson-units-nav" ng-show="lesson.units">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                            </div>
+                            <div class="units">
+                                <span class="units-title">{% trans 'Units' %}</span>
+                                {% verbatim %}
+                                <span class="has-tooltip unit"
+                                      ng-repeat="unit in lesson.units"
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      data-original-title="Unidade {{ unit.position+1 }}">
+                                      <span ng-bind="unit.position+1">1</span>
+                                </span>
+                                {% endverbatim %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--  END LESSON  -->
+
+                <!-- ORGANIZING LESSONS -->
+                <div class="lessons" ng-show="organizingLessons" sortable="lessons" on-update="repositionLessons()">
+                    <!-- LESSON -->
+                    <div class="lesson" ng-repeat="lesson in lessons">
+
+                        <div class="row">
+
+                            <div class="handle"><div class="btn btn-default sort"><span class="sr-only">ordenar</span></div></div>
+
+                            <div class="col-sm-3 hidden-xs">
+                                {% verbatim %}
+                                <img ng-src="{{ lesson.thumbnail }}" class="img-responsive">
+                                {% endverbatim %}
+                            </div>
+
+                            <div class="col-sm-9 col-xs-12">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <h4 class="title">
+                                            <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
+                                        </h4>
+                                        <p><i class="fa fa-youtube-play"></i> <small>{% verbatim %}{{ lesson.countVideos() }}{% endverbatim %} {% trans 'videos' %}</small> | <i class="fa fa-list"></i> <small>{% verbatim %}{{ lesson.countActivities() }}{% endverbatim %} {% trans 'activities' %}</small></p>
+                                        <div class="description">
+                                            <div ng-bind-html="lesson.desc|markdown"></div>
+                                        </div>
+                                    </div>
+                                    <div class="options col-sm-4">
+
+                                        <div class="btn-group lesson-status" ng-show="lesson.status=='draft'">
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                ng-click="lesson.status='published'">
+                                                <i class="fa fa-users" aria-hidden="true"></i> {% trans 'Published' %}
+                                            </button>
+                                            <span class="btn btn-sm btn-primary btn-transparent">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i> {% trans 'Draft' %}
+                                            </span>
+                                        </div>
+
+                                        <div class="btn-group lesson-status" ng-show="lesson.status=='published'">
+                                            <span class="btn btn-sm btn-primary btn-transparent">
+                                                <i class="fa fa-users" aria-hidden="true"></i> {% trans 'Published' %}
+                                            </span>
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                ng-click="lesson.status='draft'">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i> {% trans 'Draft' %}
+                                            </button>
+                                        </div>
+
+                                        <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="btn btn-sm btn-primary btn-inverse edit">editar capítulo</a>
+
+                                        <button class="btn btn-sm btn-danger btn-inverse delete" ng-click="deleteLesson(lesson)">apagar capítulo</button>
+                                    </div>
+                                </div>
+
+                                <div class="lesson-units-nav" ng-show="lesson.units">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="units">
+                                        <span class="units-title">{% trans 'Units' %}</span>
+                                        {% verbatim %}
+                                        <span class="has-tooltip unit"
+                                              ng-repeat="unit in lesson.units"
+                                              data-toggle="tooltip"
+                                              data-placement="bottom"
+                                              data-original-title="Unidade {{ unit.position+1 }}">
+                                              <span ng-bind="unit.position+1">1</span>
+                                        </span>
+                                        {% endverbatim %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END LESSON -->
+                </div>
+                <!-- END ORGANIZING LESSONS -->
+            </section>
+
+            {% else %}
+                {% if user.is_authenticated and course.has_started %}
+                <section class="lessons lesson-list">
+                    <!-- PAGE-HEADER-DOUBLE -->
+                    <div class="primary-page-header">
+                        <h3><i class="fa fa-angle-double-right"></i> Capítulos</h3>
+                    </div>
+                    <!-- END PAGE-HEADER-DOUBLE -->
+                    <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                    {% for lesson in course.public_lessons %}
+                        <!-- LESSON -->
+                        <div class="lesson row">
+                            <!-- COL-LG-3 -->
+                            <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                                <img src="{{ lesson.thumbnail }}" class="img-responsive">
+                            </div>
+                            <!-- END COL-LG-3 -->
+
+                            <!-- COL-LG-9 -->
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+
+                                <h4 class="title">
+                                    {% if lesson.is_ready and user_is_enrolled %}
+                                        <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
+                                    {% else %}
+                                        {{ lesson.name }}
+                                    {% endif %}
+                                </h4>
+                                <div class="description">{{ lesson.desc|timtec_markdown }}</div>
+
+                                <!-- HIDDEN-XS -->
+                                <div class="lesson-units-nav hidden-xs">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="units">
+                                        <span class="units-title">Unidades</span>
+                                        <!-- FOR UNIT IN UNITS -->
+                                        {% for unit in lesson.units.all %}
+                                            {% if lesson.is_ready and user_is_enrolled %}
+                                                <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                   data-toggle="tooltip" data-placement="bottom"
+                                                   data-original-title="{{ unit.title }}"
+                                                   href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}"
+                                                   style="margin-left: {{ lesson.units.all | units_ratio }}%">
+                                                   {{ forloop.counter }}
+                                                </a>
+                                            {% else %}
+                                                <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                      data-toggle="tooltip" data-placement="bottom"
+                                                      data-original-title="Unidade {{ forloop.counter }}"
+                                                      style="margin-left: {{ lesson.units.all | units_ratio }}%">
+                                                      {{ forloop.counter }}
+                                                </span>
+                                            {% endif %}
+                                            <!-- END TD -->
+                                        {% endfor %}
+                                        <!-- END FOR -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END LESSON -->
+                    {% endfor %}
+                    <!-- END FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                </section>
+                {% endif %}
+            {% endif %}
+        <!-- END COURSE-LESSONS -->
+        {% endblock %}
+
+    </section>
+    <!-- END COURSE CONTENT -->
+
+    {% if in_admin %}
+        {% include '_course_professors_modal.html' %}
+    {% endif %}
+
+</div>
+<!-- END COURSE -->
+
+{% endblock %}

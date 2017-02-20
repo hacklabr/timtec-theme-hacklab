@@ -1,0 +1,398 @@
+// Buttons and labels
+// --------------------------------------------------
+
+// overwrite some default classes
+.btn-xs {
+    font-weight: $semi-bold;
+    padding: 2px 6px;
+}
+
+.btn-sm {
+    font-weight: $semi-bold;
+}
+
+.btn-lg {
+    font-weight: $extra-bold;
+    &:before { // icon margin
+        margin-right: 10px;
+    }
+    &:after { // icon margin
+        margin-left: 10px;
+    }
+}
+
+.btn-link {
+    border: 0;
+    border-bottom-style: solid;
+    border-radius: 0;
+    line-height: 1.2;
+    padding: 0;
+}
+
+.btn-danger {
+    &.btn-inverse {
+        @include button-hover($brand-danger,#fff,#fff,$brand-danger);
+    }
+}
+
+.btn-primary {
+    &.btn-inverse {
+        @include button-hover($brand-primary,#fff,#fff,$brand-primary);
+    }
+    &.btn-transparent {
+        @include button-hover($brand-primary,$brand-primary,transparent,transparent);
+        border-color: $brand-primary !important;
+        cursor: default !important;
+    }
+}
+
+.btn {
+    border-color: transparent !important;
+    font-weight: $bold;
+    max-height: 33px;
+    text-transform: lowercase;
+    @include transition(all 0.2s ease);
+    @media screen and (max-width: $screen-xs-max) {
+        font-size: $font-size-small;
+        padding: 3px 6px;
+    }
+    &:focus {
+        outline: 0;
+    }
+    &:before { // icon margin
+        font-size: 15px;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+    &:after { // icon margin
+        margin-left: 5px;
+    }
+    &.add {
+        @extend %icon-add;
+    }
+    &.add-image {
+        @extend %icon-add-image;
+        &:before {
+            vertical-align: baseline;
+        }
+    }
+    &.add-video {
+        @extend %icon-add-video;
+        &:before {
+            vertical-align: bottom;
+        }
+    }
+    &.attach, &.attached {
+        @extend %icon-file;
+    }
+    &.attached {
+        border: 1px solid $brand-primary !important;
+        font-weight: $semi-bold;
+        @include button-hover($brand-primary,$brand-primary,transparent,transparent);
+    }
+    &.clean {
+        @extend %icon-undo;
+        @include link-hover(#fff,#fff,#fff,transparent);
+        margin-right: 20px;
+    }
+    &.continue {
+        @extend %icon-angle-right;
+    }
+    &.delete {
+        @extend %icon-delete;
+    }
+    &.download {
+        @extend %icon-download;
+    }
+    &.edit {
+        @extend %icon-edit;
+    }
+    &.filter {
+        @extend %icon-filter;
+        @include link-hover(#fff,#fff,#fff,transparent);
+    }
+    &.goback {
+        @extend %icon-goback;
+        @include link-hover(#fff,#fff,#fff,transparent);
+        font-weight: $normal;
+    }
+    &.hide-all {
+        @extend %icon-chevron-up;
+        @include link-hover($gray,#000,$gray,#000);
+        font-weight: $normal;
+    }
+    &.hide-note {
+        @extend %icon-compress;
+        &:after {
+            vertical-align: middle;
+        }
+    }
+    &.list-all {
+        @extend %icon-list;
+    }
+    &.jump-to {
+        @extend %icon-chevron-down;
+        @include link-hover(rgba(#fff,0.8),#fff,rgba(#fff,0.8),#fff);
+        font-weight: $normal;
+    }
+    &.new-topic {
+        @extend %icon-new-topic;
+    }
+    &.next-activity {
+        @extend %icon-forward;
+        margin: -4px 0 0 10px; 
+    }
+    &.notes {
+        @extend %icon-notes;
+    }
+    &.reply {
+        @extend %icon-reply;
+    }
+    &.save {
+        @extend %icon-checked;
+    }
+    &.search {
+        @extend %icon-search;
+    }
+    &.see-more {
+        @extend %icon-see-more;
+        &:before {
+            vertical-align: top;
+        }
+    }
+    &.see-stats {
+        @extend %icon-stats;
+        &:before {
+            vertical-align: baseline;
+        }
+    }
+    &.show-all {
+        @extend %icon-chevron-down;
+        @include link-hover($gray,#000,$gray,#000);
+        font-weight: $normal;
+    }
+    &.show-note {
+        @extend %icon-expand;
+        border-radius: 10px 10px 0 0;
+        &:after {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    }
+    &.sort {
+        @extend %icon-sort;
+    }
+    &.trash {
+        @extend %icon-trash;
+        padding: 3px 9px;
+        &:before {
+            font-size: $font-size-large;
+            margin-right: 0;
+        }
+    }
+}
+
+// used on forum's page
+%forum-actions {
+    color: $gray;
+    font-size: $font-size-small;
+    font-weight: $semi-bold;
+    margin-right: 10px;
+    &:before {
+        font-size: 14px;
+        margin-right: 5px;
+    }
+    &.small {
+        margin-right: 5px;
+    }
+}
+
+.action {
+    @extend %forum-actions;
+
+    &.liked {
+        @extend %icon-like;
+        &.active {
+            color: $brand-primary;
+            &:before {
+                color: $brand-primary;
+            }
+        }
+    }
+    &.used {
+        @extend %icon-checked;
+        &.active {
+            color: $brand-success;
+            &:before {
+                color: $brand-success;
+            }
+        }
+    }
+    &.replies {
+        @extend %icon-reply;
+        &.active {
+            color: $brand-info;
+            &:before {
+                color: $brand-info;
+            }
+        }
+    }
+}
+
+a.action {
+    &.liked {
+        color: $gray;
+        &:hover {
+            color: $brand-primary;
+        }
+        span {
+            @include link-hover($gray,$brand-primary,transparent,$brand-primary);
+        }
+        &.active {
+            span {
+                @include link-hover($brand-primary,$brand-primary,transparent,$brand-primary);
+            }
+        }
+    }
+    &.used {
+        color: $gray;
+        &:hover {
+            color: $brand-success;
+        }
+        span {
+            @include link-hover($gray,$brand-success,transparent,$brand-success);
+        }
+        &.active {
+            span {
+                @include link-hover($brand-success,$brand-success,transparent,$brand-success);
+            }
+        }
+    }
+    &.replies {
+        color: $gray;
+        &:hover {
+            color: $brand-info;
+        }
+        span {
+            @include link-hover($gray,$brand-info,transparent,$brand-info);
+        }
+        &.active {
+            span {
+                @include link-hover($brand-info,$brand-info,transparent,$brand-info);
+            }
+        }
+    }
+}
+
+%forum-tags, %forum-categories {
+    border: 1px solid;
+    border-radius: 20px;
+    display: inline-block;
+    color: $brand-primary;
+    font-size: $font-size-small;
+    font-weight: $semi-bold;
+    margin-right: 5px;
+    padding: 3px 6px;
+}
+
+%forum-categories {
+    &:before {
+        font-size: 16px;
+        line-height: 14px;
+        margin-right: 5px;
+    }
+}
+
+.tag {
+    @extend %forum-tags;
+}
+
+.category {
+    @extend %forum-categories;
+
+    &.discussion {
+        @extend %icon-discussion;
+    }
+
+    &.schedule {
+        @extend %icon-schedule;
+        @extend %forum-categories;
+    }
+
+    &.record {
+        @extend %icon-record;
+        @extend %forum-categories;
+    }
+}
+
+a {
+    &.tag, &.category {
+        @include button-hover($brand-primary,#fff,transparent,$brand-primary);
+    }
+}
+
+.new-thread {
+    .form-control {
+        .btn-default {
+            @extend %forum-categories;
+            @include button-hover($brand-primary,#fff,transparent,$brand-primary);
+            border: 1px solid $brand-primary !important;
+
+            .close {
+                opacity: 1;
+                color: $brand-primary;
+                line-height: 0.9em !important;
+                text-shadow: 0;
+                transition: color 0.5s ease;
+            }
+            &:hover, &:active, &:hover {
+                .close {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+// lesson's activities buttons
+
+/* .course-activity {
+    .btn {
+        @extend .btn-sm;
+        margin-left: 10px;
+    }
+    .btn-default {
+        @extend %icon-angle-right;
+        @include button-hover(#fff,#fff,$brand-primary,darken($brand-primary,10%));
+        margin-left: 0;
+    }
+    .btn-info {
+        @extend %icon-undo;
+    }
+    .btn:nth-child(3) {
+        @extend %icon-checked;
+    }
+    .btn-success:last-child {
+        @extend %icon-angle-right;
+        @include button-hover(#fff,#fff,$brand-primary,darken($brand-primary,10%));
+    }
+} */
+
+.next-lesson {
+    .btn {
+        @extend .btn-sm;
+        @extend %icon-angle-right;
+        @include button-hover(#fff,#fff,$brand-primary,darken($brand-primary,10%));
+        .fa {
+            display: none;
+        }
+    }
+}
+
+.filters {
+    .filter-reverse {
+        .btn {
+            @include button-hover($brand-primary,$brand-primary,#fff,$gray-lighter);
+        }
+    }
+}

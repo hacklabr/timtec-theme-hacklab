@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load compress %}
+
+{% block js %} {{block.super}}
+{% compress js %}
+<script type="text/javascript" src="{% static 'app/admin.lesson.app.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/controllers/admin.lesson.controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core-services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/waiting-screen.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+<script type="text/javascript" src="{% static 'ng-file-upload/ng-file-upload.js' %}"></script>
+{% endcompress %}
+{% endblock %}
+
+{% block body_attrs %}
+ng-app="admin.lesson"
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+<!-- COURSE-CONTENT -->
+<div class="course course-lesson" ng-controller="EditLessonController">
+
+    <!-- ACTIONS -->
+    <div class="actions-menu" fixed-bar>
+        <div class="container-fluid">
+            <div class="actions-buttons align-left">
+                <button class="btn btn-sm btn-danger btn-inverse delete" ng-click="deleteLesson()">apagar capítulo</button>
+            </div>
+            <div class="actions-buttons align-right">
+                <button class="btn btn-sm btn-primary btn-inverse save" ng-click="saveLesson()">salvar alterações</button>
+                <button class="btn btn-sm btn-primary" ng-click="publishLesson();">publicar</button>
+            </div>
+            {% include 'administration/_alert.html' %}
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+
+    {% include "_admin_header_inline.html" with course=course %}
+
+    <!-- COURSE-CONTENT -->
+    <section class="course-content container-fluid">
+
+        <div class="add-content" ng-init="section='video'">
+            <div class="secondary-header">
+                <div class="editable-text">
+                    <input type="text" ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}">
+                </div>
+            </div>
+            <div class="secondary-header row">
+                <div class="col-sm-2 col-md-1">
+                    <div class="unit">{% trans 'Unit' %}:</div>
+                </div>
+                <div class="col-sm-7 col-md-9">
+                    <div class="editable-text">
+                        <input type="text" ng-model="currentUnit.title" placeholder="{% trans 'Lesson description' %}">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-2">
+                    <button class="btn btn-sm btn-danger btn-inverse delete" ng-click="removeCurrentUnit()" title="{% trans 'Delete this unit' %}">{% trans 'Delete this unit' %}</button>
+                </div>
+            </div>
+
+
+            <div id="video-activity-buttons">
+                <button class="btn btn-primary btn-inverse add-video"
+                        ng-class="{'btn-primary': section === 'video'}"
+                        ng-click="section ='video'">{% trans 'Video' %}</button>
+
+                <button class="btn btn-primary btn-inverse add-activity"
+                        ng-class="{'btn-primary ': section === 'activity'}"
+                        ng-click="section ='activity'">{% trans 'Activity' %}</button>
+            </div>
+        </div>
+
+
+        <!-- VIDEO SECTION -->
+        <div class="video" ng-class="{'hidder': section !== 'video'}">
+
+            <div class="waiting textcenter jumbotron"
+                 style="height: 419px"
+                 ng-show="currentUnit.video.youtube_id && !playerReady">
+                <div class="middle">
+                    <i class="fa fa-refresh fa-5x"></i>
+                </div>
+            </div>
+
+            <!-- ADD-VIDEO-INTRO -->
+            <div class="add-video-intro" ng-hide="currentUnit.video">
+                <!-- CENTERED -->
+                <div class="centered">
+                    <i class="fa fa-youtube-play fa-4x"></i>
+                    <h1>{% trans 'Unit video' %}</h1>
+                    <div class="form-group">
+                        <input type="text" class="form-control"
+                               ng-model="currentUnit.intended_youtube_id"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-danger delete"
+                                ng-click="currentUnit.intended_youtube_id=''">{% trans 'Cancel' %}</button>
+
+                        <button class="btn btn-success save"
+                                ng-click="setCurrentUnitVideo()">{% trans 'Add' %}</button>
+                    </div>
+                </div>
+                <!-- END CENTERED -->
+            </div>
+
+            <div class="current-video" ng-class="{'hidder': currentUnit.video == null}">
+
+                <div class="embed-responsive embed-responsive-16by9">
+                    <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p ng-bind="currentUnit.video.name"></p>
+                    </div>
+                    <div class="col-xs-6 textright">
+                        <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                ng-click="currentUnit.video = null">{% trans 'Change video' %}</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        Sala de chat: <input type="text" ng-model="currentUnit.chat_room" />
+                    </div>
+                </div>
+            </div>
+            <!-- END ADD-VIDEO-INTRO -->
+
+        </div>
+        <!-- END VIDEO SECTION -->
+
+        <!-- ACTIVITIES SECTION -->
+        <div class="activity" ng-show="section==='activity'">
+            <div class="row">
+                <div class="panel panel-default" ng-show="currentActivity">
+                    <div class="panel-heading clearfix">
+                        <span ng-repeat="activity in currentUnit.activities">
+                            <button class="btn btn-default"
+                                ng-class="{'btn-info':currentActivity==activity}"
+                                ng-click="selectActivity(activity)"
+                                ng-bind="$index+1"></button>
+                            &nbsp;
+                        </span>
+
+                        <button class="btn btn btn-success"
+                            ng-click="currentActivity=null">+</button>
+                    </div>
+
+                    <div class="panel-body">
+                        <ng-include src="loadActivityTemplateUrl()"></ng-include>
+                        <hr/>
+                        <p>{% trans 'The text bellow will be shown to students when they correctly finish this activity.' %}</p>
+                        <markdowneditor title="{% trans 'Comment' %}" content="currentActivity.comment"></markdowneditor>
+                    </div>
+                </div>
+
+                <div class="add-activity textcenter" ng-hide="currentActivity">
+                    <!-- CENTERED -->
+                    <div class="centered">
+                        <i class="fa fa-pencil fa-4x"></i>
+                        <h1 class="top">{% trans 'Unit activity' %}</h1>
+                        {% verbatim %}
+                        <div class="col-md-4 col-sm-12" ng-repeat="type in activityTypes">
+                            <button class="activity-btn btn btn-default"
+                                    ng-click="addNewActivity(type.name)">
+                                {{type.label}}
+                            </button>
+                        </div>
+                        {% endverbatim %}
+                    </div>
+                    <!-- END CENTERED -->
+                </div>
+            </div>
+        </div>
+        <!-- END ACTIVITIES SECTION -->
+
+        <div class="row">
+            <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+                <div id="side-notes">
+                    <h2>{% trans 'Addicional materials' %}</h2>
+                    <modalmarkdowneditor title="{% trans 'Addicional materials' %}" content="currentUnit.side_notes"></modalmarkdowneditor>
+                </div>
+            </div>
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- END COURSE-CONTENT -->
+</div>
+<!-- END COURSE-CONTENT -->
+<div waiting-screen class="waiting waiting-screen">
+    <div class="middle">
+        <i class="fa fa-refresh fa-5x"></i>
+    </div>
+</div>
+{% endblock content %}

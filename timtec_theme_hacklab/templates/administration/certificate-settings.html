@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load pipeline %}
+{% load static %}
+{% load i18n %}
+
+{% block js %}
+    {{ block.super }}
+    {% javascript 'core' %}
+    {% javascript 'certificate' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block body_attrs %}
+ng-app="certification"
+{% endblock %}
+
+{% block content %}
+
+<section class="course certificate" ng-controller="CertificateTemplateCtrl">
+
+    <!-- ACTIONS -->
+    <div class="actions-menu" fixed-bar>
+        <div class="container-fluid">
+          <div class="row">
+            {% include 'administration/_alert.html' %}
+            <div class="actions-buttons pull-right">
+                <!--<button class="btn btn-danger">{% trans 'Cancel' %} | <i class="fa fa-times"></i></button>-->
+                <button class="btn btn-sm btn-primary btn-inverse save" ng-click="saveTemplate()">{% trans 'Save' %}</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+
+    {% include "_admin_header_inline.html" with course=course %}
+
+    <section class="certificate-content page container-fluid">
+        <header class="page-header">
+            <h3>{% trans "Certificate Settings" %}</h3>
+        </header>
+
+        <!-- Nav tabs -->
+            {% block certificate-settings-tab %}
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#edit-certificate" aria-controls="edit-certificate" role="tab" data-toggle="tab">{% trans 'Edit certificate' %}</a></li>
+                    <li role="presentation"><a href="#edit-receipt" aria-controls="edit-receipt" role="tab" data-toggle="tab">{% trans 'Edit receipt text' %}</a></li>
+                </ul>
+            {% endblock %}
+        <!-- Tab panes -->
+        <div class="tab-content">
+            {% block certificate-options %}
+            <div role="tabpanel" class="tab-pane active edit-certificates" id="edit-certificate">
+                <div class="alert alert-info" role="alert">
+                    Edite os elementos numerados de <strong>1 a 4</strong> com as informações que serão exibidas no certificado final do curso.
+                </div>
+                <div class="certificate-container certificate-admin">
+                    <div class="certificate-logos">
+                        <img src="/static/img/logo-avante.png" alt="AVANTE" class="avante">
+                        <img src="/static/img/site-logo-orange.svg" alt="{{ site.name }}" class="paralapraca">
+                        <div class="institute-logo">
+                            {% verbatim %}
+                            <img id="cert-logo" alt="Logo Instituto" preview-image ng-model="images.cert_logo" ng-src="{{ ct.cert_logo_url }}" class="img-responsive" />
+                            {% endverbatim %}
+                            <file ng-model="images.cert_logo" name="logo"></file>
+                        </div>
+                    </div>
+                    <div class="certificate-title">Certificado</div>
+                    <div class="certificate-info">
+                      <p>Certificamos que</p>
+                      <p class="student">________________</p>
+                      <p>concluiu o <strong>______________________</strong>,</p>
+                      <p>em <strong>___________________</strong> no ambiente virtual de aprendizagem do <strong>Programa Paralapracá</strong>,</p> <p>perfazendo o total de 40 horas.</p>
+                    </div>
+                    <footer>{{ object.course_student.user.get_full_name }}
+                      <div class="credits-section">
+                          <p><b>Realizado em:</b> {{ site.domain }}</p>
+                          <p><b>URL de validação:</b> <a href="">{{ site.domain }}/(código)</a></p>
+                      </div>
+                      <div class="coordinator-section">
+                          {% verbatim %}
+                          <div class="certificate-signature">
+                              <img id="sig-logo" alt="Assinatura" preview-image ng-model="images.signature" ng-src="{{ ct.signature_url }}" class="img-responsive" />
+                              <file ng-model="images.signature" name="logo"></file>
+                          </div>
+                          {% endverbatim %}
+                          <div class="editable editable-text name-coordinator">
+                              <input type="text" ng-model="ct.name" placeholder="Digite o nome" />
+                          </div>
+                          <div class="editable editable-text role-coordinator">
+                              <input type="text" ng-model="ct.role" placeholder="Digite o cargo" />
+                          </div>
+                      </div>
+                    </footer>
+                </div>
+            </div>
+            {% endblock %}
+            {% block receipt-options %}
+            <div role="tabpanel" class="{% block receipt-options-addclass %}{% endblock %} tab-pane edit-certificates" id="edit-receipt">
+                <div class="alert alert-info" role="alert">
+                    Edite as opções do atestado que será emitido automaticamente após a conclusão do curso. <br> Este atestado <strong>não possui</strong> a mesma validade do certificado.
+                </div>
+                <div class="certificate-container certificate-admin receipt-admin receipt">
+                  <div class="certificate-logos">
+                      <img src="/static/img/logo-avante.png" alt="AVANTE" class="avante">
+                      <div class="institute-logo">
+                        {% verbatim %}
+                          <img id="base-logo" alt="Logo Instituto" preview-image ng-model="images.base_logo" ng-src="{{ ct.base_logo_url }}" class="img-responsive" />
+                        {% endverbatim %}
+                        <file ng-model="images.base_logo" name="logo"></file>
+                      </div>
+                  </div>
+                  <div class="certificate-title">Comprovante</div>
+                  <div class="certificate-info">
+                      {% block receipt-options-student %}
+                          <p class="student">________________</p>
+                      {%   endblock %}
+                      <p>concluiu o <em>{{ course.name }}</em> </p>
+                      <p>com carga horária estimada em 40 horas em ________.</p>
+                  </div>
+                  <footer>
+                      <div class="credits-section">
+                          <p><b>Realizado em:</b> {{ site.domain }}</p>
+                          <p><b>URL de validação:</b> <a href="">{{ site.domain }}/(código)</a></p>
+                      </div>
+                      <div class="coordinator-section">
+                          {% verbatim %}
+                          <div class="certificate-signature">
+                              <img id="sig-logo" alt="Assinatura" preview-image ng-model="images.signature" ng-src="{{ ct.signature_url }}" class="img-responsive" />
+                              <file ng-model="images.signature" name="logo"></file>
+                          </div>
+                          {% endverbatim %}
+                          <p class="editable editable-text name-coordinator">
+                            <input type="text" ng-model="ct.name" placeholder="Digite o nome">
+                          </p>
+                          <p class="editable editable-text role-coordinator">
+                            <input type="text" ng-model="ct.role" placeholder="Digite o cargo">
+                          </p>
+                      </div>
+                  </footer>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+
+    </section>
+</section>
+{% endblock %}

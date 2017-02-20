@@ -1,0 +1,86 @@
+// Courses' page
+// --------------------------------------------------
+
+//## Course box used on course widget on dashboard and course list page
+//##
+.course-box {
+    color: #000;
+    margin-bottom: 30px;
+    @media screen and (min-width: $screen-lg-min) {
+        height: 175px;
+    }
+    .course-link {
+        color: #000;
+        display: block;
+    }
+    .course-progress {
+        .progress {
+            border-radius: 0px;
+            height: 5px;
+            margin-bottom: 0;
+        }
+    }
+    .progress-label {
+        font-size: 9px;
+        font-weight: 700;
+        line-height: 100%;
+        margin-top: -20px;
+        @media screen and (min-width: $screen-sm-min) {
+            line-height: 60%;
+            margin-top: 0;
+        }
+    }
+    .course-thumb-bg {
+        background-position: center;
+        background-size: cover;
+        height: 115px;
+    }
+    .course-description {
+        .course-title {
+            font-size: 4.2vmax;
+            line-height: 100%;
+            margin: 5px 0;
+            max-height: 80px;
+            overflow: hidden;
+            @media screen and (min-width: $screen-xs-min) {
+                font-size: 26px;
+            }
+        }
+        .course-info {
+            font-size: $font-size-small;
+
+            p {
+                margin: 0 0 5px 0; 
+            }
+            .unit-title {
+                display: block;
+                font-size: $font-size-base;
+                font-weight: $bold;
+                max-height: 40px;
+                overflow: hidden; 
+            }
+        }
+    }
+    .continue, .start {
+        border-radius: 0;
+        display: block;
+        font-weight: $bold;
+        padding: 3px;
+        text-align: center; 
+    }
+    .continue {
+        @include button-hover(#fff,#fff,$brand-primary,darken($brand-primary,10%));
+    }
+    .start {
+        @include button-hover(#fff,#fff,$brand-success,darken($brand-success,10%));
+    }
+    .course-update {
+        @extend %icon-attention;
+        font-size: $font-size-small;
+        margin: 0; 
+
+        &:before {
+            margin-right: 5px;
+        }
+    }
+}

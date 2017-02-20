@@ -1,0 +1,61 @@
+// Shared forums components
+// --------------------------------------------------
+
+.forums {
+    .info {
+        color: $gray;
+        font-size: 13px;
+        margin-bottom: 5px; 
+        overflow: hidden;
+        padding-bottom: 1px;
+        a {
+            font-size: $font-size-base;
+            font-weight: $bold;
+            @include link-hover($gray-dark,$gray-dark,transparent,$gray-dark);
+        }
+        .user-name {
+            color: $gray-dark;
+            font-size: $font-size-base;
+            font-weight: $bold;
+        }
+        .thread-name {
+            @include link-hover($brand-primary,$brand-primary,transparent,$brand-primary);
+        }
+    }
+    .actions {
+        margin: 0 0 5px 50px;
+    }
+    .tags {
+        margin-left: 50px;
+    }
+}
+
+.filters {
+    padding: 0 !important;
+    .filters-header {
+        background-color: darken($brand-primary,10%);
+        font-size: $font-size-small;
+        font-weight: $semi-bold;
+        overflow: hidden; 
+        padding: 5px 0;
+    }
+    .filters-options {
+        overflow: hidden;
+        padding: 7px 0; 
+    }
+    .category, .tag {
+        @include button-hover($gray,$gray,#fff,$brand-info);
+    }
+}
+
+.user-icon {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+    width: 40px;
+    img {
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+    }
+}

@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+{% load compress %}
+
+{% block js %}
+{{ block.super }}
+{% compress js %}
+<script type="text/javascript" src="{% static 'tinymce-dist/tinymce.js' %}"></script>
+<!-- Markdown -->
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/markdown/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/markdown/filters.js' %}"></script>
+
+<!-- Lesson -->
+<script type="text/javascript" src="{% static 'js/activities/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/activities/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/activities/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/activities/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lesson/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lesson/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lesson/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lesson/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/layout.js' %}"></script>
+
+<!-- Forum (Timtec version) -->
+<script type="text/javascript" src="{% static 'js/forum/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+
+<!-- Notes -->
+<script type="text/javascript" src="{% static 'js/notes/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/notes/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/notes/services.js' %}"></script>
+
+<!-- Discussion activity -->
+<script type="text/javascript" src="{% static 'js/timtec-discussion-app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/discussion-app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/discussion-controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/discussion-services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/discussion-directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'angular-ui-tinymce/src/tinymce.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/ui.tinymce.paralapraca.config.js' %}"></script>
+<script type="text/javascript" src="{% static 'ng-file-upload/ng-file-upload.js' %}"></script>
+<script type="text/javascript" src="{% static 'angular-scroll/angular-scroll.js' %}"></script>
+{% endcompress %}
+
+<script type="text/javascript">
+window.lessonId = {{ lesson.pk }};
+// Content type id for object type core.Unit used by django generic relations.
+window.unit_content_type_id = {{ unit_content_type_id }};
+window.chat_address = '{{ rocketchat.address }}';
+
+$(document).ready(function() {
+    $(".nav-tabs a").click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    $('a.unit').tooltip();
+
+    // startIntro();
+});
+</script>
+
+<script type="text/javascript">
+    tinyMCE.baseURL = '/static/tinymce-dist/';
+</script>
+
+{% endblock %}
+
+{% block body_attrs %}
+    ng-app="lesson"
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+
+<!-- COURSE -->
+<div class="course course-lesson" ng-controller="MainCtrl">
+
+    <!-- HEADER -->
+    {% include "_course-header-inline.html"  with course=lesson.course %}
+    <!-- END HEADER -->
+
+    <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+    <div class="lesson-units-nav hidden-xs">
+        <div class="line"></div>
+        {% block units_nav %}
+        <!-- UNITS -->
+        <div class="container-fluid">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+            </div>
+            <div class="units">
+                <span class="units-title">Unidades</span>
+                {% verbatim %}
+                <a data-placement="right"
+                   title="{{unit.title}}"
+                   href="#/{{$index+1}}"
+                   class="has-tooltip unit"
+                   ng-repeat="unit in lesson.units"
+                   ng-class="{'current': unit==currentUnit, 'done': unit.progress.complete}"
+                   ng-style="{'margin-left': (6 - lesson.units.length/5.5) + '%'}">
+                       <span ng-bind="unit.position+1">1</span>
+                </a>
+                {% endverbatim %}
+            </div>
+        </div>
+        <!-- END UNITS -->
+        {% endblock %}
+    </div>
+    <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+
+    <!-- LESSON CONTENT -->
+    {% block lesson_video %}
+    <div class="course-content">
+        {% verbatim %}
+        <div ng-class="{ 'live-lesson-content': currentUnit.chat_room, 'lesson-content': !currentUnit.chat_room }">
+            <!-- LESSON VIDEO -->
+            <!--
+            this class exists to circunvent a flash + youtube api error
+            in which if the video div is really hidden the api breaks
+            -->
+            <div ng-class="{hidder: section!='video'}" class="video embed-responsive embed-responsive-16by9">
+                <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
+            </div>
+            <livechat ng-if="currentUnit.chat_room" chat-room="currentUnit.chat_room"></livechat>
+            <!-- END LESSON VIDEO -->
+        </div>
+        {% endverbatim %}
+
+        <div class="lesson-activity container-fluid">
+                <!-- LESSON ACTIVITY -->
+                {% verbatim %}
+                <h3 class="unit-name" ng-show="currentUnit.title && section == 'activity'">{{currentUnit.title}}</h3>
+                {% endverbatim %}
+                <div ng-show="section=='activity'" class="course-activity">
+                    <ng:include src="activityTemplateUrl"></ng:include>
+
+                </div>
+                <!-- END LESSON ACTIVITY -->
+
+                <!-- LESSON COMMENTS -->
+                <div ng-show="section=='comment'" class="comment">
+                    <div class="panel panel-default" style="min-height: 368px;">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">{% trans 'Professor comment' %}</h2>
+                        </div>
+                        <div class="panel-body" ng-bind-html="currentActivity.comment|markdown"></div>
+                    </div>
+                    <div class="row" ng-if="answer.correct">
+                        <div class="col-lg-12 col-md-12 col-sm-12 textright">
+                            <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- END LESSON COMMENTS -->
+
+                <!-- NEXT LESSON -->
+                <div ng-show="section=='end'" class="next-lesson">
+                    <div class="centered">
+                        {% if next_url %}
+                            <a class="btn btn-info btn-lg" href="{{ next_url }}"><span>Vá para a próxima unidade</span><i class="fa fa-caret-right"></i></a>
+                        {% else %}
+                            <a class="btn btn-info btn-lg" href="{% url 'course_intro' lesson.course.slug %}"><span>Voltar para home do curso</span><i class="fa fa-caret-right"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- END NEXT LESSON -->
+        </div>
+
+        <div class="lesson-content">
+            <!-- LESSON INFO -->
+            <div class="lesson-info">
+                <!--<div class="lesson-name">-->
+                    <!--<div class="page-header">-->
+                        <!--<h2>{{ lesson.name }}</h2>-->
+                    <!--</div>-->
+                    <!--<div class="description">{{ lesson.desc|timtec_markdown }}</div>-->
+                <!--</div>-->
+                <div class="lesson-materials">
+                    {% block lesson_adicional_material %}
+                    <div class="secondary-page-header">
+                        <!--<h3><i class="fa fa-angle-double-right"></i> {% trans 'Addicional materials' %}</h3>-->
+                    </div>
+                    <span ng-bind-html="currentUnit.side_notes|markdown"></span>
+                    <!--<p ng-if="!currentUnit.side_notes">{% trans 'This unit has no addicional materials' %}</p>-->
+                    {% endblock %}
+                </div>
+            </div>
+            <!-- END LESSON INFO -->
+        </div>
+    </div>
+    <!-- END LESSON CONTENT -->
+    {% endblock %}
+
+    <div class="student-notes" ng-controller="NoteCtrl">
+        <button class="btn btn-success show-note" ng-show="!show_notes" ng-click="show_notes=true">abrir anotações</button>
+        <div class="notes-container" ng-show="show_notes">
+            <div class="notes-header">
+                <h4>anotação</h4>
+                {% verbatim %}
+                <a href="../../mynotes/" class="all-notes">ver todas as anotações do curso</a>
+                {% endverbatim %}
+                <button class="btn btn-xs btn-success hide-note" ng-click="show_notes=false">esconder</button>
+                <button class="btn btn-xs btn-success save" ng-click="save_note(); show_success_message=true">salvar</button>
+            </div>
+            <div class="notes-content">
+                <textarea ng-model="note_text"></textarea>
+            </div>
+            <div class="notes-success-message notes message" style="display: none">anotação salva com sucesso!</div>
+        </div>
+    </div>
+
+    <!-- COURSE COMPLETE MODAL -->
+    {% block complete_modal_template %}
+        {% include "_modal_course_complete.html" %}
+    {% endblock %}
+    <!-- END COURSE COMPLETE MODAL -->
+</div>
+<!-- END COURSE -->
+{% endblock %}

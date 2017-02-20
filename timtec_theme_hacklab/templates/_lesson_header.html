@@ -1,0 +1,37 @@
+{% load timtec_markdown %}
+        <nav class="lesson-units hidden-xs">
+            <div class="lesson-list-dropdown">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                    <!--<span class="lesson-breadcrumb">-->
+                        <!--você está no <b>Capítulo 2 de 5 | Unidade 2 de 3:</b>-->
+                    <!--</span>-->
+                    <span class="lesson-breadcrumb">
+                        você está no Capítulo: 
+                    </span>
+                    <span class="lesson-name">
+                        <b>{{ lesson.name }}</b>
+                    </span>
+                </button>
+                <ul class="dropdown-menu">
+                    {% for list_lesson in lesson.course.public_lessons %}
+                        <li><a href="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}"><b>Capítulo {{ forloop.counter }} de {{ lesson.course.public_lessons|length }}: </b> {{ list_lesson.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+
+        <!-- LESSON NAVIGATION FOR PHONE -->
+        <div class="lesson-units-mobile visible-xs">
+            <span class="lesson-breadcrumb">
+                capítulo 
+            </span>
+            <select onchange="document.location=this.value" class="form-control">
+                <option>{{lesson.name}}</option>
+                {% for list_lesson in lesson.course.public_lessons %}
+                    {% if list_lesson.name != lesson.name %}
+                        <option value="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <!-- END LESSON NAVIGATION FOR PHONE -->

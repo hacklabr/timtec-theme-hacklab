@@ -1,0 +1,100 @@
+// Profile's pages
+// --------------------------------------------------
+
+.profile-picture {
+    background-position: center;
+    background-size: cover;
+    float: left;
+    height: 140px;
+    margin: 0 15px 15px 0; 
+    width: 140px;
+}
+
+.profile-name {
+    color: #000;
+    margin-top: 0; 
+}
+
+.profile-info {
+    color: #000;
+    p {
+        &:before {
+            font-size: $font-size-large;
+            margin-right: 5px;
+            vertical-align: middle;
+            text-align: center; 
+            width: 20px;
+        }
+    }
+    .occupation {
+        @extend %icon-occupation;
+    }
+    .city {
+        @extend %icon-map-pin;
+    }
+    .site {
+        @extend %icon-site;
+    }
+}
+
+.profile-bio {
+    @media screen and (max-width: $screen-sm-max) {
+        clear: both;
+    }
+    @media screen and (min-width: $screen-md-min) {
+        margin-left: 155px;
+    }
+    p {
+        font-size: $font-size-base;
+        line-height: $line-height-computed;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.profile-edit {
+    @media screen and (max-width: $screen-xs-max) {
+        position: absolute;
+        right: 15px;
+        top: 30px;
+    }
+    @media screen and (max-width: $screen-xs-max) {
+
+    }
+    @media screen and (min-width: $screen-sm-min) {
+        float: right;
+    }
+}
+
+.profile-certificates {
+    border-top: 1px solid #000;
+    margin-top: 30px;
+    padding-top: 30px;
+
+    .course-box {
+        @media screen and (min-width: $screen-sm-min) {
+            .course-thumb {
+                padding-right: 0 !important;
+            }
+        }
+        .progress-label {
+            display: none;
+            color: #000;
+            font-size: $font-size-base;
+            line-height: 100%;
+            @media screen and (min-width: $screen-sm-min) {
+                display: block;
+            }
+        }
+        .see-certificate {
+            border: 0;
+            border-radius: 0;
+            display: block;
+            font-weight: $bold;
+            padding: 3px;
+            text-align: center; 
+            @include button-hover(#fff,#fff,$brand-success,darken($brand-success,10%));
+        }
+    }
+}

@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load is_coordinator %}
+{% load static %}
+{% load compress %}
+
+{% block js %}
+    {{ block.super }}
+
+    <script type="text/javascript" src="{% static 'tinymce-dist/tinymce.js' %}"></script>
+    {% compress js %}
+    <!-- Dashboard -->
+    <script type="text/javascript" src="{% static 'js/dashboard/dashboard-app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/dashboard-controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/core-services.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/discussion-services.js' %}"></script>
+
+    <!-- Messages -->
+    <script type="text/javascript" src="{% static 'js/messages/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/messages/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/messages/services.js' %}"></script>
+    <script type="text/javascript" src="{% static 'angular-filter/dist/angular-filter.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'checklist-model/checklist-model.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'angular-ui-tinymce/src/tinymce.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ui.tinymce.paralapraca.config.js' %}"></script>
+
+    <!-- Image upload dependencies for TinyMCE editors -->
+    <script type="text/javascript" src="{% static 'js/discussion-services.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ng-file-upload/ng-file-upload.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ui.tinymce.paralapraca.config.js' %}"></script>
+    {% endcompress %}
+    <script type="text/javascript">
+        tinyMCE.baseURL = '/static/tinymce-dist/';
+    </script>
+
+{% endblock %}
+
+{% block body_attrs %}
+  ng-app="dashboard"
+{% endblock %}
+
+{% block content %}
+
+<div ng-controller="DashboardCtrl" ng-cloak>
+
+    <div ng-controller="MessagesDashboardController">
+        <div ng-if="messages.length > 0">
+            <section class="widget messages-widget container-fluid">
+                <header class="widget-topbar line one-column">
+                    <div class="column">
+                        <div class="pull-left">
+                            <h2 class="title">
+                              {% verbatim %}
+                                Você tem <span class="notification-bubble">{{messages.length}}</span>
+                                <span ng-show="messages.length>1">avisos não lidos</span>
+                                <span ng-show="messages.length==1">aviso não lido</span>
+                              {% endverbatim %}
+                            </h2>
+                        </div>
+                        <div class="pull-right"><a href="/messages/" class="btn btn-default list-all">todos os avisos</a></div>
+                    </div>
+                </header>
+
+                {% verbatim %}
+                <div class="messages">
+                    <div class="message" ng-repeat="message in messages | limitTo:2">
+                        <h3 class="message-course">{{ message.course_name || "Aviso Geral" }}</h3>
+                        <h4 class="message-subject">{{ message.subject }}</h4>
+                        <div class="message-body">
+                            <span ng-bind-html="strip_html(message.message | limitTo : 400)"></span>
+                        </div>
+                        <a ng-if="message.course_slug" class="btn btn-default see-more" ng-href="/course/{{message.course_slug}}/message/{{message.id}}">
+                            ver aviso completo
+                        </a>
+                        <a ng-if="!message.course_slug" class="btn btn-default see-more" ng-href="/message/{{message.id}}">
+                            ver aviso completo
+                        </a>
+                    </div>
+                </div>
+                {% endverbatim %}
+            </section>
+        </div>
+    </div>
+
+    <section class="widget courses-widget container-fluid">
+
+        <header class="widget-header line one-column">
+            <div class="column">
+                <div class="pull-left"><h2 class="widget-title">Meus módulos</h2></div>
+
+                <div class="pull-right"><a href="/courses/" class="btn btn-success list-all">todos os módulos</a></div>
+
+                <!-- visto apenas por assessoras
+                    <a class="btn btn-success see-stats" href="#">ver estatísticas</a>
+                -->
+
+                <!--<form class="widget-filter form-inline">-->
+                    <!--<label>mostrando:</label>-->
+                    <!--<select class="form-control">-->
+                        <!--<option>formações fixas</option>-->
+                        <!--<option>formações fixas</option>-->
+                        <!--<option>formações fixas</option>-->
+                    <!--</select>-->
+                <!--</form>-->
+            </div>
+        </header>
+
+        {% verbatim %}
+        <div class="courses line two-column fifty-fifty">
+            <div class="course-box column" ng-repeat="course in courses">
+                <div ng-if="course.course_student" class="line two-column">
+                    <div class="course-progress column">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                 aria-valuenow="{{course.course_student.percent_progress}}" aria-valuemin="0" aria-valuemax="100"
+                                 style="width: {{course.course_student.percent_progress}}%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-label column">{{course.course_student.percent_progress}}% completo</div>
+                </div>
+
+                <div class="line two-column">
+                    <div class="course-thumb column">
+                            <div ng-if="course.course_student">
+                                <a ng-href="/course/{{ course.slug }}/resume" class="course-link">
+                                    <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.thumbnail_url+')'}"></div>
+                                </a>
+                                <a ng-href="/course/{{ course.slug }}/resume"
+                                   class="continue">continuar módulo</a>
+                            </div>
+                            <div ng-if="course.course_student===undefined">
+                                <a ng-href="/course/{{ course.slug }}/intro" class="course-link">
+                                   <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.thumbnail_url+')'}"></div>
+                                </a>
+                                <a ng-href="/course/{{ course.slug }}/intro"
+                                   class="start">começar módulo</a>
+                            </div>
+                    </div>
+                    <div class="course-description column">
+                        <h3 class="course-title"><a href="/course/{{ course.slug }}/resume" class="course-link">{{ course.name }}</a></h3>
+                        <div class="course-info">
+                            <a href="/course/{{ course.course.slug }}/resume" class="course-link">
+                            <p><b>Iniciado em:</b> {{course.course_student.start_date | date: "dd/MM/yyyy"}}</p>
+                            <!--|<p><b>Cidade:</b> Camaçari</p>-->
+                            <!--<p>você parou em <span class="unit-title">{{course.current_class.name}}</span></p>-->
+                            </a>
+                            <p ng-if="course.is_assistant_or_coordinator"><a ng-href="/course/{{ course.slug }}/reports" class="see-report">Ver relatório</a></p>
+                            <p ng-if="!course.course_student">Você ainda não começou este módulo </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endverbatim %}
+
+    </section>
+
+    <section class="widget forums forums-widget container-fluid">
+
+        <header class="widget-header line one-column">
+            <div class="column">
+                <div class="pull-left">
+                    <h2 class="widget-title">Fóruns</h2>
+                </div>
+                <div class="pull-right hidden-xs">
+                    <a class="btn btn-success list-all" href="/discussion/">mostrar todos</a>
+                    <a class="btn btn-success new-topic" href="/discussion/topic/new/#!/topic/new/">criar novo tópico</a>
+                    <!-- visto apenas por assessoras
+                        <a class="btn btn-success see-stats" href="#">ver estatísticas</a>
+                    -->
+                </div>
+                <div class="pull-right dropdown visible-xs">
+                    <button class="btn btn-default list-all dropdown-toggle" type="button" id="dropdownOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        opções
+                    </button>
+                    <ul class="dropdown-menu dropdown-options" aria-labelledby="dropdownOptions">
+                        <li><a href="/discussion/">mostrar todos</a></li>
+                        <li><a href="/discussion/topic/new/#!/topic/new/">criar novo tópico</a></li>
+                    </ul>
+                </div>
+
+                <!-- <form class="widget-filter form-inline">
+                    <input class="form-control" type="text" placeholder="Busca nos fóruns...">
+                </form> -->
+            </div>
+        </header>
+
+        <!-- <div class="line two-column forty-sixty">
+            <div class="column">
+                <h3 class="section-title">últimas postagens</h3>
+                <div class="forum-update">
+                    Avante e Entremeios
+                </div>
+                <div class="forum-update">
+                    Curso de Mediação
+                </div>
+                <div class="forum-update">
+                    Formação de formadoras
+                </div>
+                <div class="forum-update">
+                    Avante e Entremeios
+                </div>
+                <div class="forum-update">
+                    Curso de Mediação
+                </div>
+                <div class="forum-update">
+                    Formação de formadoras
+                </div>
+            </div>
+            <div class="column">
+                <h3 class="section-title">Últimas postagens</h3>
+
+                {% verbatim %}
+                <div class="user-update" ng-repeat="topic in latest_topics">
+                    <div class="user-icon">
+                        <img ng-src="{{topic.author.picture}}" alt="{{topic.author.first_name}}" />
+                    </div>
+                    <div class="info">
+                        <b>{{topic.author.first_name}}</b> comentou no tópico <a href="../discussion/topic/##{{topic.id}}" class="thread-name">{{topic.title}}</a>
+                        no fórum <a ng-href="/discussion/forum/#/{{ topic.forum }}">{{topic.forum_info.title}}</a></span>
+                    </div>
+                    <div class="actions">
+                        <span class="action replies">{{topic.count_replies}} {{topic.count_replies > 1 || topic.count_replies == 0? 'respostas':'resposta'}}</span>
+                        <span class="action liked">{{topic.count_likes}} {{topic.count_likes > 1 || topic.count_likes == 0? 'gostaram':'gostou'}}</span>
+                    </div>
+                    <div class="tags">
+                        <span ng-repeat="tag in topic.tags" class="tag">#{{tag.name}}</span>
+                    </div>
+                </div>
+                {% endverbatim %}
+
+            </div>
+        </div> -->
+
+        <div class="line one-column">
+            <div class="column">
+                <h3 class="section-title">últimas postagens</h3>
+            </div>
+        </div>
+
+        <div class="line two-column fifty-fifty">
+
+            {% verbatim %}
+            <div class="user-update column" ng-repeat="topic in latest_topics">
+                <div class="user-icon">
+                    <img ng-src="{{topic.author.picture}}" alt="{{topic.author.first_name}}" />
+                </div>
+                <div class="info">
+                    <a ng-href="/profile/{{ topic.author.username }}"><b>{{topic.author.first_name}}</b></a> comentou no tópico <a ng-href="/discussion/topic/#!/topic/{{topic.id}}/" class="thread-name">{{topic.title | charLimiter:50}}</a>
+                    no fórum <a ng-href="/discussion/#!/forum/{{ topic.forum }}">{{topic.forum_info.title}}</a></span>
+                </div>
+                <div class="actions">
+                    <span class="action last-update">Última atividade <b>{{ topic.last_activity_at | dateFilter }}</b></span>
+                    <span class="action liked"
+                          ng-class="{ 'active': topic.count_likes }">{{topic.count_likes}} {{topic.count_likes > 1 || topic.count_likes == 0? 'gostaram':'gostou'}}</span>
+                    <span class="action replies"
+                          ng-class="{ 'active': topic.count_replies }">{{topic.count_replies}} {{topic.count_replies > 1 || topic.count_replies == 0? 'comentários':'comentário'}}</span>
+                </div>
+            </div>
+            {% endverbatim %}
+            </div>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}

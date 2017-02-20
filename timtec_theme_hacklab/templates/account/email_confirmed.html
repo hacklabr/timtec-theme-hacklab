@@ -1,0 +1,34 @@
+{% extends 'account/base.html' %}
+{% load i18n %}
+
+{% block account_content %}
+<div class="login-page">
+    <div class="message">
+        <h2>{% trans "Mission accomplished" %}</h2>
+        <h3>{% trans "You have an active account" %}</h3>
+    </div>
+
+    <form method="post" action="{% url 'account_login' %}" class="login-form">{% csrf_token %}
+        <fieldset>
+            <legend>{% trans "Sign In" %}</legend>
+            <div class="form-group{% if form.errors %} has-error{% endif %}">
+                <label for="username" class="sr-only">{% trans "Username" %}</label>
+                <input name="login" type="text" id="username" class="form-control" 
+                       value="{{form.login.value|default_if_none:""}}" placeholder='{% trans "E-mail or username" %}'/>
+            </div>
+            <div class="form-group{% if form.errors %} has-error{% endif %}">
+                <label for="password" class="sr-only">{% trans "Password" %}</label>
+                <input name="password" type="password" id="password" class="form-control" placeholder='{% trans "Password" %}'>
+            </div>
+            <button type="submit" class="btn btn-submit">{% trans "Sign In" %}</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="rememberme" style="display:inline-block;"> Lembrar do meu usuário neste computador.
+                </label>
+            </div>
+        </fieldset>
+        <p class="info"><a href="{% url 'account_reset_password' %}">{% trans "Forgot my password" %}</a></p>
+    </form>
+</div>
+{% endblock %}
