@@ -1,5 +1,5 @@
 =============================
-Paralapracá
+Timtec Theme Hacklab
 =============================
 
 .. image:: https://badge.fury.io/py/timtec_theme_hacklab.png
@@ -8,7 +8,7 @@ Paralapracá
 .. image:: https://travis-ci.org/brunosmartin/timtec_theme_hacklab.png?branch=master
     :target: https://travis-ci.org/brunosmartin/timtec_theme_hacklab
 
-Paralapracá
+Timtec Theme Hacklab
 
 Documentation
 -------------
@@ -18,7 +18,7 @@ The full documentation is at https://timtec_theme_hacklab.readthedocs.org.
 Quickstart
 ----------
 
-Install Paralapracá::
+Install Timtec Theme Hacklab::
 
     pip install timtec_theme_hacklab
 
