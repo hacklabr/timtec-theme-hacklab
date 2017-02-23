@@ -1,0 +1,95 @@
+// Shared course header
+// --------------------------------------------------
+
+.main-header {
+    background-color: $beige;
+    .course-details {
+        display: none;
+    }
+    .lesson-units {
+        .lesson-list-dropdown {
+            .dropdown-menu {
+                border-top-color: #979797;
+                background-color: $beige;
+                li {
+                    a {
+                        &:hover {
+                            background-color: darken($beige,5%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Course content (used on course intro and lesson page)
+// -----------------------------------------------------
+
+.course-intro {
+    .course-content {
+        .course-info {
+            .column {
+                background-color: rgba($orange,0.4);
+                &:last-child {
+                    background-color: rgba($green,0.4);
+                }
+            }
+        }
+    }
+}
+
+// Course units navigation
+// -----------------------------------------------------
+
+.course {
+    .lesson-units-nav {
+        .line {
+            background: $orange;
+        }
+        .progress {
+            .progress-bar {
+                background: $orange;
+            }
+        }
+    }
+    .units {
+        .units-title {
+            background: $orange;
+        }
+        .unit {
+            &.current {
+                span {
+                    background-color: $orange;
+                }
+            }
+            &.current, &.done {
+                background: $orange;
+                &:hover {
+                    background: darken($orange, 10%);
+                    span {
+                        background: darken($orange, 10%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Course notes
+// -----------------------------------------------------
+
+.student-notes {
+    .button-show {
+        color: $beige;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+.course-content {
+    .next-lesson {
+        background-color: rgba(#fff,0.3);
+    }
+}

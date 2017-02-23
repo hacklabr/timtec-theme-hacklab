@@ -1,0 +1,28 @@
+// Notes' pages
+// --------------------------------------------------
+
+.notes {
+    .header {
+        .btn {
+            margin-top: -5px;
+        }
+        .btn-primary {
+            background: $green;
+            &:hover {
+                background: darken($green,10%);
+            }
+        }
+        .btn-info {
+            background: $orange;
+            &:hover {
+                background: darken($orange,10%);
+            }
+        }
+    }
+    .lesson-title {
+        color: $red;
+    }
+    .notes-list {
+        border-color: $red;
+    }
+}

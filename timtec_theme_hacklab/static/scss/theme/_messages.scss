@@ -1,0 +1,37 @@
+.messages {
+    .page {
+        @include card(rgba($orange,0.25));
+    }
+}
+
+.messages-list {
+    .page-header {
+        background-color: $orange;
+        h2 {
+            color: #fff;
+        }
+        .btn {
+            @include button-hover(#fff,#fff,$orange,darken($orange, 5%));
+        }
+    }
+    .title-header {
+        h3 {
+            color: $orange;
+        }
+        .btn {
+            &.hide-all, &.show-all {
+                @include link-hover($orange,darken($orange,5%),$orange,darken($orange,5%));
+            }
+        }
+    }
+    .message {
+        &.unread {
+            .message-body {
+                border-left: 5px solid $orange;
+                .see-more {
+                    @include button-hover(#fff,#fff,$orange,darken($orange, 5%));
+                }
+            }
+        }
+    }
+}

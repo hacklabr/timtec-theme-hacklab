@@ -1,0 +1,185 @@
+// Buttons and labels
+// --------------------------------------------------
+
+// used on forum's page
+
+.action {
+    &.liked {
+        &.active {
+            color: $red;
+            &:before {
+                color: $red;
+            }
+        }
+    }
+    &.used {
+        &.active {
+            color: $green;
+            &:before {
+                color: $green;
+            }
+        }
+    }
+    &.replies {
+        &.active {
+            color: $red;
+            &:before {
+                color: $red;
+            }
+        }
+    }
+}
+
+a.action {
+    &.liked {
+        color: $gray;
+        &:hover {
+            color: $red;
+        }
+        span {
+            @include link-hover($gray,$red,transparent,$red);
+        }
+        &.active {
+            span {
+                @include link-hover($red,$red,transparent,$red);
+            }
+        }
+    }
+    &.used {
+        color: $gray;
+        &:hover {
+            color: $green;
+        }
+        span {
+            @include link-hover($gray,$green,transparent,$green);
+        }
+        &.active {
+            span { 
+                @include link-hover($green,$green,transparent,$green);
+            }
+        }
+    }
+    &.replies {
+        color: $gray;
+        &:hover {
+            color: $red;
+        }
+        span {
+            @include link-hover($gray,$red,transparent,$red);
+        }
+        &.active {
+            span {
+                @include link-hover($red,$red,transparent,$red);
+            }
+        }
+    }
+    &.edit {
+        color: $gray;
+        &:hover {
+            color: $red;
+        }
+        span {
+            @include link-hover($gray,$red,transparent,$red);
+        }
+        &.active {
+            span {
+                @include link-hover($red,$red,transparent,$red);
+            }
+        }
+    }
+}
+
+.forum-list {
+    .action {
+        &.liked, &.used, &.replies {
+            color: $red;
+            &:before {
+                color: $red;
+            }
+        }
+    }
+}
+
+%forum-tags, %forum-categories {
+    border: 1px solid $red;
+    color: $red;
+}
+
+a {
+    &.tag, &.category {
+        @include button-hover($red,#fff,transparent,$red);
+    }
+}
+
+.new-thread {
+    .form-control {
+        .btn-default {
+            @extend %forum-categories;
+            @include button-hover($red,#fff,transparent,$red);
+            border: 1px solid $red !important;
+
+            .close {
+                color: $red;
+            }
+        }
+    }
+}
+
+.btn {
+    &.attach {
+        @include button-hover(#fff,#fff,$green,darken($green,10%));
+    }
+    &.attached {
+        border-color: $green !important;
+        @include button-hover($green,$green,transparent,transparent);
+    }
+    &.new-topic {
+        @include button-hover(#fff,#fff,$red,darken($gray,10%));
+    }
+    &.reply {
+        @include button-hover(#fff,#fff,$red,darken($red,10%));
+    }
+}
+
+.courses-widget {
+    .btn {
+        &.list-all, &.see-stats {
+            @include button-hover(#fff,#fff,$gray,darken($gray,10%));
+        }
+    }
+}
+
+.forums-widget {
+    .btn {
+        &.list-all, &.see-stats {
+            @include button-hover(#fff,#fff,$gray,darken($gray,10%));
+        }
+    }
+}
+
+.comments-form {
+    .btn.delete {
+        @include button-hover(#fff,#fff,$gray,darken($gray,10%));
+    }
+}
+
+// lesson's activities buttons
+
+/* .course-activity {
+    .btn-default {
+        @extend %icon-angle-right;
+        @include button-hover(#fff,#fff,$red,darken($red,10%));
+        margin-left: 0;
+    }
+    .btn-info {
+        @extend %icon-undo;
+        @include button-hover(#fff,#fff,$green,darken($green,10%));
+    }
+    .btn:nth-child(3) {
+        @extend %icon-checked;
+    }
+    .btn-success:last-child {
+        @extend %icon-angle-right;
+        @include button-hover(#fff,#fff,$green,darken($green,10%));
+    }
+} */

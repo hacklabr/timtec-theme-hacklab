@@ -17,7 +17,7 @@
             }
         }
         @media screen and (min-width: 947px) {
-            margin: 227px auto;
+            margin: 0 auto;
         }
         h2 {
             font-weight: bold;
@@ -33,7 +33,7 @@
 
         }
         .welcome {
-            background-color: $yellow;
+            background-color: $beige;
             text-align: center;
             @media screen and (min-width: $screen-sm-min) {
                 text-align: left;
@@ -51,7 +51,7 @@
             background-color: $orange;
         }
         .register {
-            background-color: $purple;
+            background-color: $orange;
             text-align: center;
             h2 {
                font-size: 5.5vmax;
@@ -82,7 +82,7 @@
             }
         }
         .use {
-            background: url(../img/home-print.png) $light-blue bottom right no-repeat;
+            background: url(../img/home-print.png) $orange bottom right no-repeat;
             background-size: 86%;
             min-height: 62vw;
             @media screen and (min-width: $screen-sm-min) {

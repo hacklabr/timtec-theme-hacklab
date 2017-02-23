@@ -5,23 +5,21 @@
 //
 //## Parapraca brand colors
 
+$beige:         #e2d4c1;
 $blue:          #006eb1;
-$light-blue:    #87c2e4;
-$green:         #87b726;
-$yellow:        #eabc00;
-$orange:        #de6f10;
-$red:           #d51300;
-$pink:          #cf086a;
-$purple:        #993671;
+$gray:          #949494;
+$green:         #b8c96b;
+$orange:        #f7914a;  
+$red:           #de4d39;
 
 //## Override Bootstrap's variables 
 // --------------------------------------------------
 
-$brand-primary:     $blue;
+$brand-primary:     $orange;
 $brand-success:     $green;
-$brand-info:        $light-blue;
+$brand-info:        $gray;
 $brand-warning:     $orange;
-$brand-danger:      $red;
+$brand-danger:      $orange;
 
 // Allows for customizing button radius independently from global border radius
 $btn-border-radius-base:         20px !default;
@@ -86,7 +84,7 @@ $table-border-color:            transparent !default;
 $site-header-bg-color:      rgba(255,255,255,0.75);
 
 //** Main navigation background color
-$main-nav-bg-color:         rgba($purple,0.75);
+$main-nav-bg-color:         $green;
 
 //== Scaffolding
 //

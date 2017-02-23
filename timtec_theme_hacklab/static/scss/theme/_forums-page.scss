@@ -1,0 +1,59 @@
+// Forums' pages
+// --------------------------------------------------
+
+.post-attachments {
+    .attachments {
+        border: 1px solid $green;
+        color: $green;
+    }
+    ul {
+        border-color: rgba($green,0.7);
+        li {
+            .delete {
+                &:before {
+                    color: $green;
+                }
+            }
+        }
+    }
+    a {
+        @include link-hover($green,$green,$green,transparent);
+    }
+    .loading {
+        .loading-bar {
+            border-color: $green;
+            div {
+                background-color: $green;
+            }
+        } 
+    }
+}
+
+.forums {
+    .post-attachments {
+        a {
+            @include link-hover($green,$green,$green,transparent);
+        }
+    }
+}
+
+.comments-form {
+    textarea {
+        border: 2px solid $red;
+    }
+}
+
+.see-all-topics {
+    .btn {
+        @include button-hover(#fff,#fff,rgba($red,0.6),$red);
+    }
+}
+
+.new-thread {
+    .form-control {
+        border-color: $red;
+    }
+    .selected-forum {
+        color: $red;
+    } 
+}

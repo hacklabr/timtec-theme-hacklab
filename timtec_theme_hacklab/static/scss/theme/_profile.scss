@@ -1,0 +1,22 @@
+// Profile's pages
+// --------------------------------------------------
+
+.profile.page {
+    @include card(rgba(#fff,0.3));
+    padding: 15px; 
+    @media screen and (min-width: $screen-md-min) {
+        padding: 30px;
+    }
+
+    .profile-info {
+        a {
+            @include link-hover($orange,$orange,$orange,transparent);
+        }
+    }
+
+    .profile-certificates {
+        h2 {
+            color: $orange;
+        }
+    }
+}

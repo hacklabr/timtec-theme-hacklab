@@ -1,0 +1,19 @@
+// Shared forums components
+// --------------------------------------------------
+
+.forums {
+    .info {
+        .thread-name {
+            @include link-hover($red,$red,transparent,$red);
+        }
+    }
+}
+
+.filters {
+    .filters-header {
+        background-color: $red;
+    }
+    .category, .tag {
+        @include button-hover($gray,$gray,#fff,$red);
+    }
+}

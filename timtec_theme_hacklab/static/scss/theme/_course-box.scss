@@ -1,0 +1,20 @@
+// Courses' page
+// --------------------------------------------------
+
+//## Course box used on course widget on dashboard and course list page
+//##
+.course-box {
+    .progress-bar {
+        background-color: $orange;
+    }
+    .progress-label {
+        color: $orange;
+    }
+    .continue {
+        @include button-hover(#fff,#fff,$green,darken($green,10%));
+    }
+    .see-report {
+        @include link-hover($orange,$orange,$orange,transparent);
+        font-weight: $bold;
+    }
+}

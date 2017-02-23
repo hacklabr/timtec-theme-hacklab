@@ -1,0 +1,90 @@
+// Widget's common styles
+// --------------------------------------------------
+
+.widget-topbar {
+    background-color: $red;
+
+    &.breadcrumb {
+        border-color: $red;
+        .line {
+            border-color: $red;
+            color: $red;
+            .btn.goback {
+                @include link-hover($red,$red,$red,transparent);
+            }
+        }
+    }
+}
+
+.section-title {
+    color: $red;
+    a {
+        color: $red;
+    }
+}
+
+// Courses widget
+// --------------------------------------------------
+
+.courses-widget {
+    @include card(rgba($orange,0.3));
+    
+    .widget-header {
+        margin-bottom: 30px;
+    }
+    .widget-title {
+        color: $orange;
+    }
+    .widget-filter {
+        label {
+            color: $orange;
+        }
+        .form-control {
+            color: $orange;
+            &:focus {
+                border-color: $orange;
+            }
+        }
+    }
+
+    .all-courses {
+        .btn {
+            @include button-hover(#fff,#fff,$red,darken($red,10%));
+        }
+    }
+}
+
+// Forums widget
+// --------------------------------------------------
+
+.forums-widget {
+    .widget-title {
+        color: $red;
+    }
+
+    .widget-filter {
+        &:after {
+            color: $red;
+        }
+        .form-control {
+            color: $red;
+        }
+    }
+
+    .forum-update {
+        background-color: $red;
+    }
+}
+
+// Messages widget
+// --------------------------------------------------
+
+.messages-widget {
+    @include card(rgba($orange,0.7));
+    .widget-topbar {
+        background-color: $orange;
+    }
+    .btn {
+        @include button-hover(#fff,#fff,$orange,darken($orange,5%));
+    }
+}
