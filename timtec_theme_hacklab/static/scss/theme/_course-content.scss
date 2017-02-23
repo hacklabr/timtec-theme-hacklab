@@ -11,10 +11,11 @@
             .dropdown-menu {
                 border-top-color: #979797;
                 background-color: $beige;
-                li {
+                li, li:nth-child(even) {
                     a {
+                        background-color: $beige;
                         &:hover {
-                            background-color: darken($beige,5%);
+                            background-color: $orange;
                         }
                     }
                 }

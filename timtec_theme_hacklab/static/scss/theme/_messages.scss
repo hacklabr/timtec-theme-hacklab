@@ -1,17 +1,17 @@
 .messages {
     .page {
-        @include card(rgba($orange,0.25));
+        @include card(rgba($green,0.25));
     }
 }
 
 .messages-list {
     .page-header {
-        background-color: $orange;
+        background-color: $green;
         h2 {
             color: #fff;
         }
         .btn {
-            @include button-hover(#fff,#fff,$orange,darken($orange, 5%));
+            @include button-hover(#fff,#fff,$gray,darken($gray, 5%));
         }
     }
     .title-header {
@@ -29,7 +29,7 @@
             .message-body {
                 border-left: 5px solid $orange;
                 .see-more {
-                    @include button-hover(#fff,#fff,$orange,darken($orange, 5%));
+                    @include button-hover(#fff,#fff,$green,darken($green, 5%));
                 }
             }
         }

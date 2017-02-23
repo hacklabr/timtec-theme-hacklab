@@ -1,6 +1,10 @@
 // Notes' pages
 // --------------------------------------------------
 
+.my-notes.page {
+    @include card(rgba($green,0.3));
+}
+
 .notes {
     .header {
         .btn {
@@ -20,9 +24,9 @@
         }
     }
     .lesson-title {
-        color: $red;
+        color: $orange;
     }
     .notes-list {
-        border-color: $red;
+        border-color: $orange;
     }
 }

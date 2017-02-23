@@ -22,7 +22,7 @@
 .open-activity {
     margin-bottom: 30px;
     .topbar {
-        background-color: $orange;
+        background-color: $red;
         color: #fff;
         height: 40px;
         margin: -30px -30px 0;
@@ -49,9 +49,9 @@
     .action {
         &.liked, &.used, &.replies {
             &.active {
-                color: $brand-primary;
+                color: $red;
                 &:before {
-                    color: $brand-primary;
+                    color: $red;
                 }
             }
         }
@@ -60,14 +60,14 @@
         &.liked, &.used, &.replies {
             color: $gray;
             &:hover {
-                color: $brand-primary;
+                color: $red;
             }
             span {
-                @include link-hover($gray,$brand-primary,transparent,$brand-primary);
+                @include link-hover($gray,$red,transparent,$red);
             }
             &.active {
                 span {
-                    @include link-hover($brand-primary,$brand-primary,transparent,$brand-primary);
+                    @include link-hover($red,$red,transparent,$red);
                 }
             }
         }
@@ -125,9 +125,9 @@
         }
         .action {
             &.liked, &.used, &.replies {
-                color: $brand-primary;
+                color: $red;
                 &:before {
-                    color: $brand-primary;
+                    color: $red;
                 }
             }
         } 
@@ -135,14 +135,14 @@
             &.liked, &.used, &.replies {
                 color: $gray;
                 &:hover {
-                    color: $brand-primary;
+                    color: $red;
                 }
                 span {
-                    @include link-hover($gray,$brand-primary,transparent,$brand-primary);
+                    @include link-hover($gray,$red,transparent,$red);
                 }
                 &.active {
                     span {
-                        @include link-hover($brand-primary,$brand-primary,transparent,$brand-primary);
+                        @include link-hover($red,$red,transparent,$red);
                     }
                 }
             }
