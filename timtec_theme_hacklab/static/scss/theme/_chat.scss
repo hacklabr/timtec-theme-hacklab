@@ -1,13 +1,6 @@
-body.logged .wrapper.chat {
-    top: 0;
-    margin-top: 0;
-    padding-bottom: 0;
-    height: 100vh;
-
-    iframe {
-        border: none;
-        height: calc(100% - 80px);
-        margin-top: 80px;
-        width: 100%;
-    }
+body.logged .wrapper.chat iframe {
+    border: none;
+    height: calc(100% - 80px);
+    margin-top: 80px;
+    width: 100%;
 }
