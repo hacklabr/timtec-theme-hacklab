@@ -53,7 +53,7 @@
             <div class="form-group{% if errors or form.non_field_errors %} has-error{% endif %}">
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <label for="password1" class="sr-only">{% trans "Password" %}</label>
-                <input name="password1" type="password" id="password" class="form-control" placeholder="{% trans 'Really strong password' %}">
+                <input name="password1" type="password" id="password" class="form-control" placeholder="Senha">
                 {% for error in errors %}<small class="help-block">{{error}}</small>{% endfor %}
                 {% for error in form.non_field_errors %}<small class="help-block">{{error}}</small>{% endfor %}
             </div>
@@ -63,7 +63,7 @@
             <div class="form-group{% if errors or form.non_field_errors %} has-error{% endif %}">
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <label for="password2" class="sr-only">{% trans 'Password confirmation' %}</label>
-                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
+                <input name="password2" type="password" class="form-control" placeholder="Repita a senha">
             </div>
             {% endwith %}
 
