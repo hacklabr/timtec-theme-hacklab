@@ -1,93 +1,98 @@
 .certificate-container {
-    border-top-color: $green;
-    border-right-color: $orange;
-    border-bottom-color: $red;
-    border-left-color: $beige;
-    &:before {
-        border-width: 2px;
-        border-style: solid;
-        border-top-color: $green;
-        border-right-color: $orange;
-        border-bottom-color: $red;
-        border-left-color: $beige;
-    }
-    .certificate-logos {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0 auto;
-        @media screen and (min-width: $screen-sm-min) {
-            height: 60px;
-            max-width: 570px;
-        }
-        @media screen and (min-width: $screen-md-min) {
-            height: 100px;
-            max-width: 750px;
-        }
-        .avante {
-            height: 40px;
-            @media screen and (min-width: $screen-md-min) {
-                height: 50px;
-            }
-            @media screen and (min-width: $screen-md-min) {
-                height: auto;
-            }
-        }
-        .paralapraca {
-            width: 140px;
+    @media screen and (min-width: $screen-md-min) {
+        height: 1140px;
+        &:before, &:after {
+            background-image: url('../img/certificate-bg.png');
+            content: '';
+            height: 1140px;
+            width: 107px;
             position: absolute;
-            top: 70px;
-            left: 50%;
-            margin-left: -70px;
-            @media screen and (min-width: $screen-sm-min) {
-                width: 150px;
-                position: static;
-                left: 0;
-                margin-left: 60px;
-            }
-            @media screen and (min-width: $screen-md-min) {
-                width: 200px;
-                margin-left: 80px;
-            }
+            top: 0;
         }
-        .institute-logo {
-            text-align: right;
-            img {
-                height: 12px;
-                @media screen and (min-width: $screen-sm-min) {
-                    height: 15px;
-                }
-                @media screen and (min-width: $screen-md-min) {
-                    height: 20px;
-                }
+        &:before {
+            left: 0;
+        }
+        &:after {
+            right: 0;
+            transform: scaleX(-1);
+            filter: FlipH;
+            -ms-filter: "FlipH";
+        }
+    }
+    .line {
+        display: flex;
+        height: 4px;
+        margin: 0 auto;
+        max-width: 620px;
+        span {
+            display: block;
+            height: 4px;
+            flex-grow: 1;
+            &:first-child {
+                background-color: $green;
+            }
+            &:nth-child(2) {
+                background-color: $red;
+            }
+            &:last-child {
+                background-color: $orange;
             }
         }
     }
-    &.receipt {
-        .certificate-logos {
-            @media screen and (min-width: $screen-sm-min) {
-                height: 70px;
-                margin-bottom: 15px;
-            }
-            @media screen and (min-width: $screen-md-min) {
-
-            }
-            .paralapraca {
-                @media screen and (min-width: $screen-sm-min) {
-                    margin-left: 50px;
-                }
-                @media screen and (min-width: $screen-md-min) {
-                
-                }
-            }
-            .institute-logo {
-                @media screen and (min-width: $screen-sm-min) {
-                    img {
-                        max-height: 15px;
-                    }
-                }
-            }
+    .sindesep {
+        display: block;
+        margin: 40px auto;
+    } 
+    .certificate-title, .certificate-subtitle {
+        margin: 0 auto;
+        max-width: 530px;
+        text-align: center;
+    }
+    .certificate-title {
+        color: $gray;
+        font-size: 20px;
+        line-height: 1.4;
+       
+    }
+    .certificate-subtitle {
+        color: $red;
+        font-family: $font-family-serif;
+        font-size: 36px;
+        line-height: 1.2;
+        margin-top: 10px;
+    }
+    .certificate-info {
+        margin: 20px auto 0;
+        max-width: 650px;
+        p {
+            font-family: $font-family-serif;
+            font-size: 18px;
+            line-height: 1.5;
         }
+    }
+    .signature-section {
+        margin-bottom: 30px !important;
+        .signature {
+            display: block;
+            margin: 30px auto -10px;
+        }
+        span {
+            border-top: 2px solid #979797;
+            display: block;
+            margin: 0 auto;
+            max-width: 390px;
+            padding-top: 10px;
+        }
+        small {
+            display: block;
+            font-family: $font-family-sans-serif;
+            margin: 0 auto;
+            max-width: 490px;
+        }
+    }
+    footer {
+        margin: 80px auto 30px;
+        max-width: 580px;
     }
 }
 

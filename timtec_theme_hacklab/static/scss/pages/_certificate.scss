@@ -14,46 +14,19 @@
     }
 }
 .certificate-container {
-    background-color: #fcf6ef;
+    background-color: #fff;
     margin: 0 auto;
     padding: 20px;
     position: relative;
-    border-width: 10px;
-    border-style: solid;
-    border-top-color: $brand-success;
-    border-right-color: $brand-primary;
-    border-bottom-color: $brand-info;
-    border-left-color: $brand-danger;
     @media screen and (min-width: $screen-sm-min) {
-        background-color: transparent;
-        background-image: url('../img/bg-certificate.svg');
         background-size: 100%;
         background-repeat: no-repeat;
         border: 0;
-        height: 370px;
         padding: 22px;
     }
     @media screen and (min-width: $screen-md-min) {
-        height: 504px;
-        max-width: 866px;
+        max-width: 870px;
         padding: 30px;
-    }
-    &:before {
-        border-width: 2px;
-        border-style: solid;
-        border-top-color: $brand-success;
-        border-right-color: $brand-primary;
-        border-bottom-color: $brand-info;
-        border-left-color: $brand-danger;
-        position: absolute;
-        content: '';
-        top: 5px;
-        right: 5px;
-        bottom: 5px;
-        left: 5px;
-        @media screen and (min-width: $screen-sm-min) {
-            display: none;
-        }
     }
     .certificate-title {
         font-family: $font-family-serif;
@@ -100,10 +73,6 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            position: absolute;
-            bottom: 25px;
-            left: 30px;
-            right: 30px;
         }
         @media screen and (min-width: $screen-md-min) {
             bottom: 40px;
@@ -137,33 +106,6 @@
             }
             .role-coordinator {
                 font-style: italic;
-            }
-        }
-    }
-    &.receipt {
-        background: #fff;
-        border: 0;
-        padding: 30px;
-        @media screen and (min-width: $screen-sm-min) {
-            background-image: url('../img/bg-receipt.svg');
-            background-size: 100%;
-            padding: 30px 100px;
-        }
-        @media screen and (min-width: $screen-md-min) {
-            padding: 60px 140px;
-        }
-        &:before {
-            border-width: 3px;
-            top: 10px;
-            right: 10px;
-            bottom: 10px;
-            left: 10px;
-        }
-        footer {
-            @media screen and (min-width: $screen-md-min) {
-                bottom: 50px;
-                left: 150px;
-                right: 150px;
             }
         }
     }

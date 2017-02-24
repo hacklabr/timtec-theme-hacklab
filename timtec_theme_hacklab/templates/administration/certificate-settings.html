@@ -77,29 +77,42 @@ ng-app="certification"
                     Edite os elementos numerados de <strong>1 a 4</strong> com as informações que serão exibidas no certificado final do curso.
                 </div>
                 <div class="certificate-container certificate-admin">
+                    <div class="line"><span></span><span></span><span></span></div>
+                    
                     <div class="certificate-logos">
-                        <img src="/static/img/logo-avante.png" alt="AVANTE" class="avante">
-                        <img src="/static/img/site-logo-orange.svg" alt="{{ site.name }}" class="paralapraca">
-                        <div class="institute-logo">
+                        <img src="/static/img/sindesep-logo-atestado.png" alt="{{ site.name }}" class="sindesep">
+                        <!--<div class="institute-logo">
                             {% verbatim %}
                             <img id="cert-logo" alt="Logo Instituto" preview-image ng-model="images.cert_logo" ng-src="{{ ct.cert_logo_url }}" class="img-responsive" />
                             {% endverbatim %}
                             <file ng-model="images.cert_logo" name="logo"></file>
-                        </div>
+                        </div>-->
                     </div>
-                    <div class="certificate-title">Certificado</div>
+                    <div class="certificate-title">
+                        CURSO EAD – FORMAÇÃO
+                        CIDADÃ: PLANO MUNICIPAL DE EDUCAÇÃO - PME/CONAE 2018 Dia 01/03/2017
+                    </div>
+                    <div class="certificate-subtitle">
+                        ATESTADO DE PARTICIPAÇÃO DE CURSO DE EAD
+                    </div>
                     <div class="certificate-info">
-                      <p>Certificamos que</p>
-                      <p class="student">________________</p>
-                      <p>concluiu o <strong>______________________</strong>,</p>
-                      <p>em <strong>___________________</strong> no ambiente virtual de aprendizagem do <strong>Programa Paralapracá</strong>,</p> <p>perfazendo o total de 40 horas.</p>
+                        <p>
+                            Atestamos, para os devidos fins, que o(a) servidor(a)<br>
+                            _______________________________________, RF:_______________, participou do CURSO DE FORMAÇÃO CIDADÃ, conforme PORTARIA SME Nº 8.008, DE 15 DE DEZEMBRO DE 2016 – publicado do DOC 16/12/2016, pág 19, tendo como tema o PLANO MUNICIPAL DE EDUCAÇÃO-PME/CONAE 2018, promovido pelo Sindicato dos Trabalhadores na Administração Pública e Autarquias do Município de São Paulo – Sindsep/SP. O curso foi realizado na modalidade de “Ensino à Distância - EAD”, no dia 01 de março de 2017, com acesso ao link no site www.sindsep-sp.org.br, liberado a partir das 12h até 20h, com carga horária de 4h.<br>     Sem mais para o momento e nos colocando à disposição para o que couber.</p>
+                        <p class="signature-section">
+                            Atenciosamente,
+                            <img src="/static/img/signature.png" alt="Diretoria Executiva" class="signature">
+                            <span>DIRETORIA EXECUTIVA</span>
+                            <small>Sindicato dos Trabalhadores na Administração Pública e Autarquias do Município de São Paulo – SINDSEP</small>
+                        </p>
+                        <p>São Paulo, 01 de março de 2017.</p>
                     </div>
                     <footer>{{ object.course_student.user.get_full_name }}
                       <div class="credits-section">
                           <p><b>Realizado em:</b> {{ site.domain }}</p>
                           <p><b>URL de validação:</b> <a href="">{{ site.domain }}/(código)</a></p>
                       </div>
-                      <div class="coordinator-section">
+                      <!--<div class="coordinator-section">
                           {% verbatim %}
                           <div class="certificate-signature">
                               <img id="sig-logo" alt="Assinatura" preview-image ng-model="images.signature" ng-src="{{ ct.signature_url }}" class="img-responsive" />
@@ -112,8 +125,10 @@ ng-app="certification"
                           <div class="editable editable-text role-coordinator">
                               <input type="text" ng-model="ct.role" placeholder="Digite o cargo" />
                           </div>
-                      </div>
+                      </div>-->
                     </footer>
+
+                    <div class="line"><span></span><span></span><span></span></div>
                 </div>
             </div>
             {% endblock %}
