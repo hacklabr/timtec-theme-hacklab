@@ -27,7 +27,7 @@ ng-app="my-courses"
         <!-- CONTAINER -->
         <div class="courses-page page container-fluid" ng-controller="CourseListController">
             <header class="page-header">
-                <h2><i class="fa fa-angle-double-right"></i> Módulos</h2>
+                <h2><i class="fa fa-angle-double-right"></i> Cursos</h2>
             </header>
             {% verbatim %}
             <section class="courses-list" ng-cloak>
@@ -50,14 +50,14 @@ ng-app="my-courses"
                                     <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.thumbnail_url+')'}"></div>
                                 </a>
                                 <a ng-href="/course/{{ course.slug }}/resume"
-                                   class="continue">continuar módulo</a>
+                                   class="continue">continuar curso</a>
                             </div>
                             <div ng-if="course.course_student===undefined">
                                 <a ng-href="/course/{{ course.slug }}/intro" class="course-link">
                                    <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.thumbnail_url+')'}"></div>
                                 </a>
                                 <a ng-href="/course/{{ course.slug }}/intro"
-                                   class="start">começar módulo</a>
+                                   class="start">começar curso</a>
                             </div>
                         </div>
                         <div class="course-description col-sm-7 col-md-8">
@@ -75,7 +75,7 @@ ng-app="my-courses"
                                     <!--<p>você parou em <span class="unit-title">número e nome do capítulo</span></p>-->
                                 </a>
                                 <p ng-if="course.is_assistant_or_coordinator"><a ng-href="/course/{{ course.slug }}/reports" class="see-report">Ver relatório</a></p>
-                                <p ng-if="!course.course_student">Você ainda não começou este módulo </p>
+                                <p ng-if="!course.course_student">Você ainda não começou este curso </p>
                             </div>
                         </div>
                     </div>

@@ -87,9 +87,9 @@
 
         <header class="widget-header line one-column">
             <div class="column">
-                <div class="pull-left"><h2 class="widget-title">Meus módulos</h2></div>
+                <div class="pull-left"><h2 class="widget-title">Meus cursos</h2></div>
 
-                <div class="pull-right"><a href="/courses/" class="btn btn-success list-all">todos os módulos</a></div>
+                <div class="pull-right"><a href="/courses/" class="btn btn-success list-all">todos os cursos</a></div>
 
                 <!-- visto apenas por assessoras
                     <a class="btn btn-success see-stats" href="#">ver estatísticas</a>
@@ -128,14 +128,14 @@
                                     <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.thumbnail_url+')'}"></div>
                                 </a>
                                 <a ng-href="/course/{{ course.slug }}/resume"
-                                   class="continue">continuar módulo</a>
+                                   class="continue">continuar curso</a>
                             </div>
                             <div ng-if="course.course_student===undefined">
                                 <a ng-href="/course/{{ course.slug }}/intro" class="course-link">
                                    <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.thumbnail_url+')'}"></div>
                                 </a>
                                 <a ng-href="/course/{{ course.slug }}/intro"
-                                   class="start">começar módulo</a>
+                                   class="start">começar curso</a>
                             </div>
                     </div>
                     <div class="course-description column">
@@ -147,7 +147,7 @@
                             <!--<p>você parou em <span class="unit-title">{{course.current_class.name}}</span></p>-->
                             </a>
                             <p ng-if="course.is_assistant_or_coordinator"><a ng-href="/course/{{ course.slug }}/reports" class="see-report">Ver relatório</a></p>
-                            <p ng-if="!course.course_student">Você ainda não começou este módulo </p>
+                            <p ng-if="!course.course_student">Você ainda não começou este curso </p>
                         </div>
                     </div>
                 </div>

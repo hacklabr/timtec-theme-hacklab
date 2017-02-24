@@ -56,11 +56,11 @@ wrapper-course-intro
                     <!-- LEFT BUTTON GROUP -->
                     <button class="btn btn-sm btn-danger btn-inverse delete" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">
                         <span class="visible-xs-inline">apagar</span>
-                        <span class="hidden-xs">apagar módulo</span>
+                        <span class="hidden-xs">apagar curso</span>
                     </button>
                     <button class="btn btn-sm btn-primary btn-inverse download" title="{% trans 'Export course and download' %}" ng-click="export_course()">
                         <span class="visible-xs-inline">exportar</span>
-                        <span class="hidden-xs">exportar módulo</span>
+                        <span class="hidden-xs">exportar curso</span>
                     </button>
                     <!-- END LEFT BUTTON GROUP -->
                 </div>
@@ -95,7 +95,7 @@ wrapper-course-intro
         {% if in_admin %}
             <!-- ADD CONTENT -->
             <div class="add-content">
-                <div class="help-text">Qual é a melhor opção para apresentar esse módulo?</div>
+                <div class="help-text">Qual é a melhor opção para apresentar esse curso?</div>
                 <button class="btn btn-primary add-video"
                         ng-class="{'btn-inverse':mediaSection=='video'}"
                         ng-click="mediaSection='video'">{% trans 'Video' %}</button>
@@ -272,9 +272,9 @@ wrapper-course-intro
                         <div class="secondary-page-header">
                             {% if in_admin %}
                                 <div class="editable-secondary-title">
-                                  <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i>Por que fazer este módulo?</h3></div>
+                                  <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i>Por que fazer este curso?</h3></div>
                             {% else %}
-                                <h3><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i>Por que fazer este módulo?
+                                <h3><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i>Por que fazer este curso?
                             {% endif %}
                         </div>
                         {% if in_admin %}

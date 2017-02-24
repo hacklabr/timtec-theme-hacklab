@@ -7,8 +7,8 @@
     {% if user.is_authenticated %}
         <li><a href="{% url 'profile' %}" class="profile">{% trans "Profile" %}</a></li>
         <li><a href="{% url 'user_notes' %}" class="notes">{% trans "Notes" %}</a></li>
-        <!--<li><a href="{% url 'user_courses' %}" class="courses">{% trans 'Meus módulos' %}</a></li>-->
-        <li><a href="{% url 'courses' %}" class="courses">Módulos</a></li>
+        <!--<li><a href="{% url 'user_courses' %}" class="courses">{% trans 'Meus cursos' %}</a></li>-->
+        <li><a href="{% url 'courses' %}" class="courses">Cursos</a></li>
         <li>
             {% verbatim %}
             <a class="messages" href="/messages/">
@@ -37,7 +37,7 @@
                 <span class="hidden-xs">Administração</span>
             </a>
             <ul uib-collapse="collapsedSubmenu">
-                <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans 'Módulos' %}</a></li>
+                <li><a href="{% url 'administration.courses' %}" id="admin-link">Cursos</a></li>
                 <li><a href="{% url 'administration.users' %}" id="admin-link">{% trans 'Usuários' %}</a></li>
                 <!--<li><a href="{% url 'administration.users' %}">{% trans 'Usuários e grupos' %}</a></li>-->
             </ul>
@@ -51,7 +51,7 @@
         {% endif %}
         <li><a href="{% url 'timtec_logout' %}" class="logout">{% trans "Logout" %}</a></li>
     {% else %}
-        <li><a href="{% url 'courses' %}" class="courses">{% trans 'Módulos' %}</a></li>
+        <li><a href="{% url 'courses' %}" class="courses">Cursos</a></li>
         <li>
             <a href="#" class="dropdown-toggle login" data-toggle="dropdown">{% trans 'Sign In' %}</a>
             {% include '_login_modal.html' %}
