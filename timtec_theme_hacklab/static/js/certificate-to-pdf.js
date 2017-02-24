@@ -14,9 +14,10 @@ if (navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgen
 
 // Prepara a versão em PDF do certificado/comprovante sendo exibido no momento
 var pdf = new jsPDF({
-  orientation: 'landscape',
+  orientation: 'portrait',
   unit: 'mm',
-  format: [225, 131]
+  // format: [225, 131]
+  format: [225, 291]
 });
 
 pdf.addHTML(document.getElementsByClassName('certificate-container'), function () {});
