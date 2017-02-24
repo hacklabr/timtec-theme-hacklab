@@ -1,20 +1,21 @@
-<div class="form-group">
-    <label class="col-lg-4 control-label">Sou</label>
-    <div class="col-lg-8">
-        <select class="form-control" name="{{contact_form.occupation.name}}">
-            <option>Coordenadora</option>
-            <option>Gestor</option>
-            <option>Outro</option>
-        </select>
-    </div>
-</div>
+  <!-- <div class="form-group">
+      <label class="col-lg-4 control-label">Sou</label>
+      <div class="col-lg-8">
+          <select class="form-control" name="{{contact_form.occupation.name}}">
+              <option>Coordenadora</option>
+              <option>Gestor</option>
+              <option>Outro</option>
+          </select>
+      </div>
+  </div> -->
+  <input type="hidden" name="{{contact_form.occupation.name}}" value="Aluno">
 <div class="form-group">
     <label class="col-lg-4 control-label">Quero falar sobre</label>
     <div class="col-lg-8">
         <select class="form-control" name="{{contact_form.subject.name}}">
-            <option>Dúvidas sobre o conteúdo do AVA</option>
-            <option>Dúvidas sobre o Projeto Paralapracá</option>
-            <option>Problemas no acesso de usuários</option>
+            <option>Dúvidas sobre o conteúdo</option>
+            <option>Dúvidas sobre o Projeto</option>
+            <option>Problemas no acesso</option>
             <option>Certificados</option>
             <option>Sugestões, elogios ou reclamações</option>
             <option>Outro assunto</option>
