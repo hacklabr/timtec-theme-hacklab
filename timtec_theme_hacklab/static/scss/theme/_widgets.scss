@@ -80,11 +80,14 @@
 // --------------------------------------------------
 
 .messages-widget {
-    @include card(rgba($orange,0.7));
+    @include card(rgba($green,0.7));
     .widget-topbar {
-        background-color: $orange;
+        background-color: $green;
+    }
+    .message-subject {
+        margin-left: 25px !important;
     }
     .btn {
-        @include button-hover(#fff,#fff,$orange,darken($orange,5%));
+        @include button-hover(#fff,#fff,$gray,darken($gray,5%));
     }
 }

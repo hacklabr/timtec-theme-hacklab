@@ -6,12 +6,16 @@
         color: #fff;
         margin: 0 15px;
         > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 15px;
         }
         @media screen and (min-width: $screen-sm-min) {
             display: flex;
             flex-wrap: wrap;
             > div {
+                min-height: 320px;
                 padding: 30px;
                 width: 50%;
             }
@@ -33,32 +37,32 @@
 
         }
         .welcome {
-            background-color: $beige;
+            background-color: $red;
             text-align: center;
             @media screen and (min-width: $screen-sm-min) {
                 text-align: left;
             }
             h2 {
                 font-size: 6vmax;
-                line-height: 95%;
-                margin-bottom: 15px;
+                line-height: 1.2;
                 @media screen and (min-width: $screen-sm-min) {
-                    font-size: 66px;
+                    font-size: 54px;
                 }
             }
         }
         .login {
             background-color: $orange;
         }
-        .register {
-            background-color: $orange;
+        .more-info {
+            background-color: $green;
+            flex-direction: column;
             text-align: center;
             h2 {
                font-size: 5.5vmax;
                 line-height: 95%;
-                margin-bottom: 60px;
+                margin-bottom: 30px;
                 @media screen and (min-width: $screen-sm-min) {
-                    font-size: 50px;
+                    font-size: 54px;
                 }
             }
             p {
@@ -68,29 +72,43 @@
                     text-decoration: underline;
                 }
             }
-            .btn-register {
-                background-color: $green;
+            .btn-more-info {
+                background-color: $gray;
                 color: #fff;
                 font-weight: $extra-bold;
                 font-size: $font-size-large;
                 width: 270px;
                 transition: all 0.5s ease;
                 &:hover {
-                    background-color: darken($green, 15%);
+                    background-color: darken($gray, 10%);
                     color: #fff;
                 }
             }
         }
         .use {
-            background: url(../img/home-print.png) $orange bottom right no-repeat;
-            background-size: 86%;
-            min-height: 62vw;
-            @media screen and (min-width: $screen-sm-min) {
-                min-height: auto;
-            }
+            background: $beige;
+            flex-direction: column;
 
-            p {
-                margin: 0 0 15px 30px;
+            h2 {
+                font-size: 5.5vmax;
+                line-height: 95%;
+                margin-bottom: 30px;
+                text-align: center;
+                @media screen and (min-width: $screen-sm-min) {
+                    font-size: 54px;
+                }
+            }
+            .btn-register {
+                background-color: $orange;
+                color: #fff;
+                font-weight: $extra-bold;
+                font-size: $font-size-large;
+                width: 270px;
+                transition: all 0.5s ease;
+                &:hover {
+                    background-color: darken($orange, 10%);
+                    color: #fff;
+                }
             }
         }
     }
