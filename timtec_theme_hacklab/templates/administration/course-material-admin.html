@@ -5,7 +5,6 @@
 {% block js %}
 {{ block.super }}
 <script type="text/javascript" src="{% static 'tinymce-dist/tinymce.js' %}"></script>
-{% compress js %}
 <script type="text/javascript" src="{% static 'js/course_material/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/course_material/controllers.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/course_material/services.js' %}"></script>
@@ -21,6 +20,7 @@
 <script type="text/javascript" src="{% static 'ng-file-upload/ng-file-upload.js' %}"></script>
 <script type="text/javascript" src="{% static 'angular-sanitize/angular-sanitize.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/discussion-services.js' %}"></script>
+{% compress js %}
 {% endcompress %}
 <script type="text/javascript">
     tinyMCE.baseURL = '/static/tinymce-dist/';
