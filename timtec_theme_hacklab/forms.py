@@ -61,7 +61,6 @@ class SindsepLoginForm(LoginForm):
         return self.cleaned_data
 
     def login(self, request, redirect_url=None):
-        import ipdb;ipdb.set_trace()
         if not self.user:
             return redirect(reverse_lazy('base_theme:sindsep_signup_error'))
         elif self.user.is_cpf_verified:
