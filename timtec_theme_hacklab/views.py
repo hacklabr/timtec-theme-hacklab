@@ -7,11 +7,14 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView, View
+from django.contrib.auth import get_user_model
+from allauth.account.views import LoginView
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from timtec_theme_hacklab.models import AnswerNotification, UnreadNotification
 from timtec_theme_hacklab.serializers import AnswerNotificationSerializer, UnreadNotificationSerializer
+from .forms import SindsepLoginForm
 
 
 ROCKET_CHAT = {
@@ -112,3 +115,13 @@ class UnreadNotificationViewSet(viewsets.ModelViewSet):
             UnreadNotification.objects.create(user=self.request.user)
             queryset = UnreadNotification.objects.filter(user=self.request.user)
         return queryset
+
+
+
+class SindsepLoginView(LoginView):
+
+    template_name = 'account/sindsep_signup.html'
+    form_class = SindsepLoginForm
+
+    def get(self, request, *args, **kwargs):
+        return super(SindsepLoginView, self).get(request, *args, **kwargs)

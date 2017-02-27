@@ -14,4 +14,10 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^chat/?$', views.ChatScreenView.as_view(template_name="chat.html"), name='chat_screen'),
     url(r'^_chat/auth/$', views.RocketchatIframeAuthView.as_view(), name='rocketchat_iframe_auth'),
+    # url(r'^cadastro/?$', views.SindsepSignupView.as_view(), name='sindsep_signup'),
+    url(r'^cadastro/?$', views.SindsepLoginView.as_view(), name='sindsep_login'),
+    url(r'^cadastro/ausente?$',
+        TemplateView.as_view(template_name='account/sindsep_signup_error.html'),
+        name='sindsep_signup_error'
+        ),
 ]
