@@ -17,7 +17,6 @@ class SindsepLoginForm(LoginForm):
     accept_terms = forms.BooleanField(label=_('Accept '), initial=False, required=False)
 
     def clean_password2(self):
-        # import ipdb;ipdb.set_trace()
         password = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
         if password and password2:
@@ -26,7 +25,6 @@ class SindsepLoginForm(LoginForm):
         return password2
 
     def clean_email(self):
-        # import ipdb;ipdb.set_trace()
         return self.data['email']
 
     def clean(self):
@@ -63,7 +61,7 @@ class SindsepLoginForm(LoginForm):
     def login(self, request, redirect_url=None):
         if not self.user:
             return redirect(reverse_lazy('base_theme:sindsep_signup_error'))
-        elif self.user.is_cpf_verified:
+        elif hasattr(self.user, 'is_cpf_verified') and self.user.is_cpf_verified:
             return redirect(reverse_lazy('account_login'))
         response = super(SindsepLoginForm, self).login(request, redirect_url)
         return response
