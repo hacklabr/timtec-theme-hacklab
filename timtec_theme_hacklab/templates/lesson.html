@@ -172,7 +172,7 @@ wrapper-course-lesson
                 <div ng-show="section=='end'" class="next-lesson">
                     <div class="centered">
                         {% if next_url %}
-                            <a class="btn btn-info btn-lg" href="{{ next_url }}"><span>Vá para a próxima unidade</span><i class="fa fa-caret-right"></i></a>
+                            <a class="btn btn-info btn-lg" href="{{ next_url }}"><span>Vá para o próximo capítulo</span><i class="fa fa-caret-right"></i></a>
                         {% else %}
                             <a class="btn btn-info btn-lg" href="{% url 'course_intro' lesson.course.slug %}"><span>Voltar para home do curso</span><i class="fa fa-caret-right"></i></a>
                         {% endif %}
