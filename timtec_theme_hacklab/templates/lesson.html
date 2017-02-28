@@ -224,6 +224,40 @@ wrapper-course-lesson
         </div>
     </div>
 
+    <!-- Live chat login script -->
+    <script type="text/javascript">jQuery(function triggerrc($){
+        var tries = 15;
+
+        var itid = setInterval(function(){
+            if(tries-- < 1) {
+                clearInterval(itid);
+                console.error('Falha na tentativa de login')
+                return;
+            }
+
+            $('#live-chat').each(function(){
+                var iframeWindow = this.contentWindow;
+                iframeWindow.postMessage({
+                    externalCommand: 'call-custom-oauth-login',
+                    service: '{{ rocketchat.service }}'
+                }, '*');
+            });
+
+        }, 1000);
+
+        window.addEventListener("message", function(resp) {
+            var data = resp.data;
+            var stop_login = data.eventName === "custom-oauth-callback"
+                          || (data.eventName === "status-changed" && data.data === "online")
+                          || data.eventName == "room-opened";
+
+            if( stop_login ) {
+                clearInterval(itid);
+            }
+        }, false);
+
+    });</script>
+
     <!-- COURSE COMPLETE MODAL -->
     {% block complete_modal_template %}
         {% include "_modal_course_complete.html" %}
