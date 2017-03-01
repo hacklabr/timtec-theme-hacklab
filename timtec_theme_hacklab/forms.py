@@ -25,6 +25,8 @@ class SindsepLoginForm(LoginForm):
         return password2
 
     def clean_email(self):
+        if User.objects.filter(email=self.data['email']).exists():
+            raise forms.ValidationError(_("Já existe um usuário com este email."))
         return self.data['email']
 
     def clean(self):
@@ -36,7 +38,7 @@ class SindsepLoginForm(LoginForm):
             sindsep_user = User.objects.get(username=login)
 
             if not sindsep_user.is_active:
-                if not sindsep_user.email or self.data["email"].split('@')[1]:
+                if not sindsep_user.email or sindsep_user.email.split('@')[1] == 'nomail.com':
                     sindsep_user.email = self.data["email"]
                 else:
                     if sindsep_user.email != self.data["email"]:
