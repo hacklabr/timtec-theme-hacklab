@@ -47,14 +47,14 @@ ng-app="my-courses"
                         <div class="course-thumb col-sm-5 col-md-4">
                             <div ng-if="course.course_student">
                                 <a ng-href="/course/{{ course.slug }}/resume" class="course-link">
-                                    <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.thumbnail_url+')'}"></div>
+                                    <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.home_thumbnail_url+')'}"></div>
                                 </a>
                                 <a ng-href="/course/{{ course.slug }}/resume"
                                    class="continue">continuar curso</a>
                             </div>
                             <div ng-if="course.course_student===undefined">
                                 <a ng-href="/course/{{ course.slug }}/intro" class="course-link">
-                                   <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.thumbnail_url+')'}"></div>
+                                   <div class="course-thumb-bg" ng-style="{'background-image':'url('+course.home_thumbnail_url+')'}"></div>
                                 </a>
                                 <a ng-href="/course/{{ course.slug }}/intro"
                                    class="start">começar curso</a>
