@@ -16,7 +16,10 @@
     {% endfor %}
     {% for error in form.non_field_errors %}
         <div class="alert alert-danger" role="alert">
-            {{error}}
+            <!-- {{error}} -->
+            <p>Por favor, verifique seu nome de usuário e/ou senha. Uma destas informações não foi digitada corretamente.</p>
+
+            <p>Caso esta dificuldade persista, e você seja filiado(a) ao Sindsep, entre em contato pelo formulário de contato (parte superior da tela) ou pelos telefones 2129-2954 ou 2129-2962, para que possamos resolver seu problema.</p>
         </div>
     {% endfor %}
 
