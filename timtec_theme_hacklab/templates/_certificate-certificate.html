@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="certificate-container">
-        
+
         <div class="line"><span></span><span></span><span></span></div>
 
         <div class="certificate-logos">
@@ -18,7 +18,7 @@
         <div class="certificate-info">
             <p>
                 Atestamos, para os devidos fins, que o(a) servidor(a)<br>
-                {{ object.course_student.user.get_full_name }}, RF: _______________, participou do {{ object.course_student.course.name }}, conforme PORTARIA SME Nº 8.008, DE 15 DE DEZEMBRO DE 2016 – publicado do DOC 16/12/2016, pág 19, tendo como tema o PLANO MUNICIPAL DE EDUCAÇÃO-PME/CONAE 2018, promovido pelo Sindicato dos Trabalhadores na Administração Pública e Autarquias do Município de São Paulo – Sindsep/SP. O curso foi realizado na modalidade de “Ensino à Distância - EAD”, no dia 01 de março de 2017, com acesso ao link no site www.sindsep-sp.org.br, liberado a partir das 12h até 20h, com carga horária de 4h.<br>
+                {{ object.course_student.user.get_full_name }}, RF: {{ object.course_student.user.sindsepprofile.rf }}, participou do {{ object.course_student.course.name }}, conforme PORTARIA SME Nº 8.008, DE 15 DE DEZEMBRO DE 2016 – publicado do DOC 16/12/2016, pág 19, tendo como tema o PLANO MUNICIPAL DE EDUCAÇÃO-PME/CONAE 2018, promovido pelo Sindicato dos Trabalhadores na Administração Pública e Autarquias do Município de São Paulo – Sindsep/SP. O curso foi realizado na modalidade de “Ensino à Distância - EAD”, no dia 01 de março de 2017, com acesso ao link no site www.sindsep-sp.org.br, liberado a partir das 12h até 20h, com carga horária de 4h.<br>
                 Sem mais para o momento e nos colocando à disposição para o que couber.</p>
             <p class="signature-section">
                 Atenciosamente,
@@ -31,8 +31,8 @@
         <footer>
             <div class="credits-section">
                 <p><b>Emitido em:</b> {{ object.modified_date | date:"d/m/Y" }}</p>
-                <p><b>Realizado em:</b> ava.paralapraca.org.br</p>
-                <p><b>URL de validação:</b> <a href="{% url 'certificate' object.link_hash %}">url.org.br{% url 'certificate' object.link_hash %}</a></p>
+                <p><b>Realizado em:</b> http://politicapublica.social</p>
+                <p><b>URL de validação:</b> <a href="{% url 'certificate' object.link_hash %}">http://sindsep.politicapublica.social{% url 'certificate' object.link_hash %}</a></p>
             </div>
             <!--<div class="coordinator-section">
                 {% if cert_template.signature_url %}
