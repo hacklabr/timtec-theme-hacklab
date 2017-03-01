@@ -107,10 +107,10 @@ wrapper-course-lesson
 
                 <div class="tab-content">
                     <div class="tab-pane fade in active" class="students-list" id="students">
-                        <div ng-hide="users_reports.$resolved">
+                        <div ng-hide="users_reports">
                             <p>{% trans 'Loading students report' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
                         </div>
-                        <div ng-show="users_reports.$resolved">
+                        <div ng-show="users_reports">
                             <h3>{% trans 'Students progress' %}</h3>
                             <p class="students-total">{% trans 'Total number of students' %}: <span>{% verbatim %}{{ users_reports.length }}{% endverbatim %}</span></p>
                             <!--
@@ -119,7 +119,7 @@ wrapper-course-lesson
                             </div>
                             -->
                         </div>
-                        <ul class="students" ng-show="users_reports.$resolved">
+                        <ul class="students" ng-show="users_reports">
                             <li ng-repeat="user in (filteredList = (users_reports | orderBy:ordering:reverse | filter:filters.check))">
                                 <div class="row">
                                 {% verbatim %}
@@ -146,7 +146,7 @@ wrapper-course-lesson
                                         </span>
                                     </div>
                                     <div class="lessons col-xs-12" ng-if="showLessons">
-                                        <div class="col-lg-12" ng-hide="user.lessons_stats.$resolved">
+                                        <div class="col-lg-12" ng-hide="user.lessons_stats">
                                             <span>{% trans 'Loading student report' %}...   <i class="loading fa fa-refresh fa-spin"></i></span>
                                         </div>
                                         <div class="chapter" ng-repeat="lesson in user.lessons_stats.lessons_progress">
@@ -187,7 +187,7 @@ wrapper-course-lesson
                         <div class="row">
                             <div class="col-lg-8">
                                 <h3>{% trans 'Average student progress per class' %}</h3>
-                                <div class="col-lg-12" ng-hide="course_stats.$resolved">
+                                <div class="col-lg-12" ng-hide="course_stats">
                                     <p>{% trans 'Loading lessons report' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
                                 </div>
                             </div>
