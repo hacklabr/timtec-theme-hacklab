@@ -21,7 +21,7 @@
                     </dd>
                 </p>
                 <p ng-show="!cs.user.is_profile_filled && cs.can_emmit_receipt">
-                    Para validar seu comprovante, você precisa preencher seu perfil.
+                    Para validar seu atestado, você precisa preencher seu perfil.
                     <a href="/profile/edit?next=/certificate/{{ receipt.link_hash }}">
                         {% endverbatim %}
                         {% trans 'Clique aqui para editá-lo' %}
@@ -29,14 +29,14 @@
                     </a>.
                 </p>
                 <p ng-hide="cs.can_emmit_receipt">
-                    <span>Infelizmente, seu comprovante não pode ser emitido:</span>
+                    <span>Infelizmente, seu atestado não pode ser emitido:</span>
                 </p>
                 <p ng-hide="cs.course_finished">
                     Para concluir o curso, você precisa finalizar {{ cs.min_percent_to_complete }}% das atividades e
                     você concluiu {{ cs.percent_progress }}%
                 </p>
                 <p ng-hide="cs.course_finished">
-                    Finalize as atividades restantes para que seu comprovante possa ser emitido!
+                    Finalize as atividades restantes para que seu atestado possa ser emitido!
                 </p>
             </div>
         </div>
