@@ -10,20 +10,19 @@
           </div>
       </div>
       {% endblock %}
-      <div class="certificate-title">Atestado</div>
+      <div class="certificate-subtitle">Atestado</div>
       <div class="certificate-info">
-            <p>
-                Você está visualizando uma atestado de conclusão de ao menos 80% do {{ object.course.name }}, em {{ object.created_date | date:"d/m/Y" }}.
-            </p>            
-            <p>
-                Isto não é uma certificação porque a aula presencial deverá ser feita, com 100% de presença, na data de 07/10/2017, no horário especificado por você no ato da inscrição.
-            </p>            
-            <p>
-                O certificado será emitido pelo SINDSEP, enviado à SME para validação e lançamento no SISTEMA EOL e depois retornará para o SINDSEP que enviará a você, filiado, pelo correio.
-            </p>
-            <p>
-                Aos não filiados que fizeram o curso, pedimos que enviem seu endereço para o e-mail <a href="mailto:educacao@sindsep-sp.org.br">educacao@sindsep-sp.org.br</a>, para que possamos também enviar para a sua residência.
-            </p>
+            <p>Este é um atestado de que você visualizou e respondeu as atividades do curso {{ object.course.name }}.</p>
+            
+            <p>Este é um passo importante, mas não o suficiente para a conclusão do curso. Para a certificação final, você precisa ainda:</p>
+            
+            <p>- receber a aprovação das atividades pelos mediadores. Entre com frequência para ver se suas atividades já foram respondidas e, caso tenha algum pedido de ajuste, execute-o.</p>
+            
+            <p>- estar presente na aula presencial na data de 07/10/2017, no período especificado por você no ato da inscrição.</p>
+            
+            <p>O certificado será emitido pelo SINDSEP, enviado à SME para validação e lançamento no SISTEMA EOL e depois retornará para o SINDSEP que enviará a você, filiado, pelo correio.</p>
+            
+            <p>Aos não filiados que fizeram o curso, pedimos que enviem seu endereço para o e-mail: <a href="mailto:educacao@sindsep-sp.org.br">educacao@sindsep-sp.org.br</a>, para que possamos enviar para a sua residência.</p>
       </div>
 
       <footer>
