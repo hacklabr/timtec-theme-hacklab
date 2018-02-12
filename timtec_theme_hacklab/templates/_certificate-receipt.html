@@ -10,31 +10,44 @@
           </div>
       </div>
       {% endblock %}
-      <div class="certificate-subtitle">Atestado</div>
-      <div class="certificate-info">
-            <p>Este é um atestado de que você visualizou e respondeu as atividades do curso {{ object.course.name }}.</p>
+      <div class="certificate-title">
+        ATESTADO DE PARTICIPAÇÃO DO CURSO EAD DE FORMAÇÃO CIDADÃ –
+        TEMA: “OLHARES SOBRE O CURRÍCULO DA CIDADE DE SÃO PAULO”
+    </div>
+    <!-- <div class="certificate-subtitle">
+        ATESTADO DE PARTICIPAÇÃO DE CURSO DE EAD
+    </div> -->
+    <div class="certificate-info">
+        <p>
+            Atestamos, para os devidos fins, que o(a) servidor(a)<br>
+            {{ object.course_student.user.get_full_name }}, RF: {{ object.course_student.user.sindsepprofile.rf }}, participou do {{ object.course_student.course.name }}, conforme INSTRUÇÃO NORMATIVA SME Nº 2, DE 31/01/2018, <b>publicada no DOC DE 01/02/2018 - página 20</b>, promovido pelo Sindicato dos Trabalhadores na Administração Pública e Autarquias do Município de São Paulo – Sindsep/SP.<br>
 
-            <p>Este é um passo importante, mas não o suficiente para a conclusão do curso. Para a certificação final, você precisa ainda estar presente na aula presencial na data de 16/12/2017, no período especificado por você no ato da inscrição.</p>
+            O curso foi realizado na modalidade de “Ensino à Distância - EAD”, no dia 14 de fevereiro de 2018, com acesso ao link no site www.sindsep-sp.org.br, liberado a partir das 12h até 23:59h, com carga horária de 4h.<br>
 
-            <p>O certificado será emitido pelo SINDSEP, enviado à SME para validação e lançamento no SISTEMA EOL e depois retornará para o SINDSEP que enviará a você, filiado, pelo correio.</p>
+            Sem mais para o momento e nos colocando à disposição para o que couber.</p>
+        <p class="signature-section">
+            Atenciosamente,
+            <span>SÉRGIO ANTIQUEIRA</span>
+            <small>Presidente do Sindicato dos Trabalhadores na Administração Pública e Autarquias do Município de São Paulo – SINDSEP</small>
 
-            <p>Aos não filiados que fizeram o curso, pedimos que enviem seu endereço para o e-mail: <a href="mailto:educacao@sindsep-sp.org.br">educacao@sindsep-sp.org.br</a>, para que possamos enviar para a sua residência.</p>
-      </div>
-
-      <footer>
+        </p>
+        <p>São Paulo, 14 de fevereiro de 2018.</p>
+    </div>
+    <footer>
         <div class="credits-section">
-            <p><b>Realizado em:</b> sindsep.politicapublica.social</p>
-            <p><b>URL de validação:</b> <a href="{% url 'certificate' object.link_hash %}">sindsep.politicapublica.social{% url 'certificate' object.link_hash %}</a></p>
+            <p><b>Emitido em:</b> {{ object.modified_date | date:"d/m/Y" }}</p>
+            <p><b>Realizado em:</b> http://politicapublica.social</p>
+            <p><b>URL de validação:</b> <a href="{% url 'certificate' object.link_hash %}">http://sindsep.politicapublica.social{% url 'certificate' object.link_hash %}</a></p>
         </div>
-        <div class="coordinator-section">
+        <!--<div class="coordinator-section">
             {% if cert_template.signature_url %}
             <div class="certificate-signature">
                 <img alt="Signature" src="{{ cert_template.signature_url }}">
             </div>
             {% endif %}
-            <!-- <p class="name-coordinator">{{ cert_template.name }}</p>
-            <p class="role-coordinator">{{ cert_template.role }}</p> -->
-        </div>
-      </footer>
+            <p class="name-coordinator">{{ cert_template.name }}</p>
+            <p class="role-coordinator">{{ cert_template.role }}</p>
+        </div>-->
+    </footer>
     </div>
 </div>
