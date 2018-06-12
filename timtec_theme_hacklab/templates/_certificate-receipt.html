@@ -6,40 +6,48 @@
       {% block certificate-logo %}
       <div class="certificate-logos">
           <div class="institute-logo">
-            <img src="/static/img/sindesep-logo-atestado.png" alt="{{ site.name }}" class="sindesep">
+            <img src="/static/img/sindsep-logo-atestado-parceiros.jpg" alt="{{ site.name }}" class="sindesep">
           </div>
       </div>
       {% endblock %}
       <div class="certificate-title">
-        ATESTADO DE PARTICIPAÇÃO DO CURSO EAD DE FORMAÇÃO CIDADÃ –
-        TEMA: “OLHARES SOBRE O CURRÍCULO DA CIDADE DE SÃO PAULO”
+        ATESTADO DE PARTICIPAÇÃO DO CURSO EAD REFLEXÕES SOBRE O DESENVOLVIMENTO INFANTIL E A SOCIOLOGIA DA INFÂNCIA
     </div>
     <!-- <div class="certificate-subtitle">
         ATESTADO DE PARTICIPAÇÃO DE CURSO DE EAD
     </div> -->
     <div class="certificate-info">
         <p>
-            Atestamos, para os devidos fins, que o(a) servidor(a)<br>
-            {{ object.course_student.user.get_full_name }}, RF: {{ object.course_student.user.sindsepprofile.rf }}, participou do {{ object.course_student.course.name }}, conforme INSTRUÇÃO NORMATIVA SME Nº 2, DE 31/01/2018, <b>publicada no DOC DE 01/02/2018 - página 20</b>, promovido pelo Sindicato dos Trabalhadores na Administração Pública e Autarquias do Município de São Paulo – Sindsep/SP.<br>
+          Parabéns, {{ object.course_student.user.get_full_name }}, você concluiu a etapa on line do curso Reflexões sobre o desenvolvimento infantil e a sociologia da infância, mas, ainda não concluiu todo o curso.<br><br>
 
-            O curso foi realizado na modalidade de “Ensino à Distância - EAD”, no dia 14 de fevereiro de 2018, com acesso ao link no site www.sindsep-sp.org.br, liberado a partir das 12h até 23:59h, com carga horária de 4h.<br>
+          Este é um atestado de que você visualizou e respondeu as atividades on line.<br><br>
 
-            Sem mais para o momento e nos colocando à disposição para o que couber.</p>
-        <p class="signature-section">
+          É um passo importante, mas não o suficiente para a receber a sua certificação. Portanto, para conclusão de 100% do curso, você precisa ainda:<br><br>
+
+          - receber a aprovação da atividade pelos mediadores. Entre com frequência para ver se sua atividade já foi respondida e, caso tenha algum pedido de ajuste, execute-o.<br><br>
+
+          - estar presente na aula presencial na data de 30/06/2018, no período especificado por você no ato da inscrição.<br><br>
+
+          O certificado será emitido pelo SINDSEP, enviado à SME para validação e lançamento no SISTEMA EOL e depois retornará para o SINDSEP que enviará a você, filiado, pelo correio.<br><br>
+
+          Aos não filiados que fizeram o curso, pedimos que enviem seu endereço para o e-mail: educacao@sindsep-sp.org.br, para que possamos enviar para a sua residência."<br><br>
+
+          <p class="signature-section">
             Atenciosamente,
             <img src="/static/img/signature.png" alt="Diretoria Executiva" class="signature">
             <span>SÉRGIO ANTIQUEIRA</span>
             <small>Presidente do Sindicato dos Trabalhadores na Administração Pública e Autarquias do Município de São Paulo – SINDSEP</small>
 
         </p>
-        <p>São Paulo, 14 de fevereiro de 2018.</p>
     </div>
-    <footer>
+
+
+    <!-- <footer>
         <div class="credits-section">
             <p><b>Emitido em:</b> {{ object.modified_date | date:"d/m/Y" }}</p>
             <p><b>Realizado em:</b> http://politicapublica.social</p>
             <p><b>URL de validação:</b> <a href="{% url 'certificate' object.link_hash %}">http://sindsep.politicapublica.social{% url 'certificate' object.link_hash %}</a></p>
-        </div>
+        </div> -->
         <!--<div class="coordinator-section">
             {% if cert_template.signature_url %}
             <div class="certificate-signature">
@@ -49,6 +57,6 @@
             <p class="name-coordinator">{{ cert_template.name }}</p>
             <p class="role-coordinator">{{ cert_template.role }}</p>
         </div>-->
-    </footer>
-    </div>
+    <!-- </footer>
+    </div> -->
 </div>
